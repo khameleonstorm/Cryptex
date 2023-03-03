@@ -4,15 +4,76 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-top: 30px;
+  overflow-x: hidden;
+}
+
+.wrapper{
+  width: 100%;
+  max-width: 1200px;
+  overflow-x: hidden;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 0.5em;
+  background-color: #f1f1f1;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 1em;
+}
+
+.btns{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.btns a:nth-child(1){
+  padding: 7px 15px;
+  border: 1px solid #00b35f;
+  border-radius: 10px;
+  font-size: .9rem;
+  transition: all ease-in-out .3s;
+}
+
+.btns a:nth-child(2){
+  padding: 7px 15px;
+  border: 1px solid #ff0000;
+  border-radius: 10px;
+  font-size: .9rem;
+  transition: all ease-in-out .3s;
+}
+
+.btns a:nth-child(1):hover,
+.btns a:nth-child(1):focus{
+  background-color: rgba(9, 255, 0, 0.03);
+}
+
+.btns a:nth-child(2):hover,
+.btns a:nth-child(2):focus{
+  background-color: rgba(255, 0, 0, 0.03);
 }
 
 .balCard{
   width: 100%;
-  max-width: 1200px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   gap: 20px;
+  overflow-x: scroll;
+}
+
+.balCard::-webkit-scrollbar {
+  width: 1rem;
+  background-color: #f1f1f1;
+  height: 5px;
+  display: none;
+}
+
+.balCard::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 1rem;
 }
 
 .card{
@@ -23,13 +84,13 @@
   border-radius: 15px;
   background: rgb(249, 249, 249);
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  padding: 15px;
+  padding: 10px;
   margin-bottom: 20px;
   gap: 15px;
 }
 
 .card:nth-child(1){
-  border-left: 3px solid #7b4604;
+  border-left: 3px solid #00b35f;
 }
 
 .card:nth-child(2){
@@ -41,7 +102,15 @@
 }
 
 .card:nth-child(4){
-  border-left: 3px solid #5B00CF;
+  border-left: 3px solid #a600cf;
+}
+
+.card:nth-child(5){
+  border-left: 3px solid #7b4604;
+}
+
+.card:nth-child(6){
+  border-left: 3px solid #0033ff;
 }
 
 .cardheader{
@@ -62,7 +131,6 @@
   font-size: .9rem;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.7);
-  font-family: "Poppins", sans-serif;
 }
 
 .isactive{
@@ -89,8 +157,8 @@
 
 .cardbody h1{
   font-size: 2rem;
-  color: rgb(0, 0, 0);
-  font-family: "Poppins", sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 400;
 }
 
 .chart{
@@ -100,10 +168,15 @@
 @media screen and (max-width: 600px){
 .container{
   min-height: 500px;
-}
-.balCard{
   padding: 0 10px;
+}
+
+.balCard{
+  width: 100%;
   gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card{

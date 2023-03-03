@@ -43,15 +43,15 @@ export default function ForgotPassword() {
 
 
   return ((authIsReady && !user) &&
-    <div className={styles.container}>
+    <div className="formCtn">
       <Nav black={true}/>
-      <form className={styles.form} onSubmit={handleReset}>
+      <form className="form" onSubmit={handleReset}>
         <h1>Reset Password</h1>
         <TextField id="email" label="Email" variant="outlined" onChange={handleChange("email")}/>
 
-        {!isPending && <button className={styles.btn}>Reset</button>}
-        {isPending && <button disabled className={styles.btn} style={{opacity: "50%"}}><PulseLoader color='#000000' size={10}/> </button>}
-        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        {!isPending && <button className="bigBtn full">Reset</button>}
+        {isPending && <button disabled className="bigBtn full load"><PulseLoader color='#000000' size={10}/> </button>}
+        {errorMessage && <p className="formError">{errorMessage}</p>}
         {successMessage && <p className={styles.success}>{successMessage}</p>}
         {formError.email && <p className={styles.error}>{formError.email}</p>}
         

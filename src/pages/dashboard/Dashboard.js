@@ -17,6 +17,7 @@ import { MoonLoader } from 'react-spinners';
 // importing plans
 import { plans } from '../../utils/investText';
 import DashboardNav from '../../components/dashboardNav/DashboardNav';
+import Referral from '../../components/referral/Referral';
 
 
 
@@ -102,6 +103,7 @@ export default function Dashboard() {
       {page === 'referral' &&
       <div className={styles.main}>
         <DashboardNav />
+        <Referral />
       </div>
       }
       

@@ -71,9 +71,9 @@ export default function Login() {
 
 
   return ((authIsReady && !user) &&
-    <div className={styles.container}>
+    <div className="formCtn">
       <Nav black={true}/>
-      <form className={styles.form} onSubmit={handleLogin}>
+      <form className="form" onSubmit={handleLogin}>
         <h1>Welcome Back!</h1>
         <TextField 
         id="email" 
@@ -109,9 +109,9 @@ export default function Login() {
           />
         </FormControl>
 
-        {!isPending && <button className={styles.btn}>Login</button>}
-        {isPending && <button disabled className={styles.btn} style={{opacity: "50%"}}><PulseLoader color='#000000' size={10}/> </button>}
-        {error && <p className={styles.error}>{error}</p>}
+        {!isPending && <button className="bigBtn full">Login</button>}
+        {isPending && <button disabled className="bigBtn full load"><PulseLoader color='#000000' size={10}/> </button>}
+        {error && <p className="formError">{error}</p>}
         
       <Link to="/signUp" className={styles.link}>Don't Have An Account?</Link>
       <Link to="/forgotPassword" className={styles.link2}>Forgot Password?</Link>

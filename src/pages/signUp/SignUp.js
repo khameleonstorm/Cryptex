@@ -6,12 +6,10 @@ import {AiFillCamera} from "react-icons/ai"
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { countries } from '../../utils/countries';
-import axios from 'axios';
 import { useSignup } from '../../hooks/useSignup';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
-// import emailjs from '@emailjs/browser';
 
 
 export default function SignUp() {
@@ -28,10 +26,6 @@ export default function SignUp() {
     country: "",
     image: {},
     referral: '',
-    gender: '',
-    bitcoinAddress: '',
-    usdtAddress: '',
-    emailChecked: false,
     policyChecked: false,
     showPassword: false,
   });
@@ -43,11 +37,7 @@ export default function SignUp() {
     phoneNumber: null,
     country: null,
     image: null,
-    gender: null,
     referral: null,
-    bitcoinAddress: null,
-    usdtAddress: null,
-    emailChecked: null,
     policyChecked: null,
   })
 
@@ -92,9 +82,6 @@ export default function SignUp() {
       image: values.image,
       referral: values.referral,
       password: password,
-      gender: values.gender,
-      bitcoinAddress: values.bitcoinAddress,
-      usdtAddress: values.usdtAddress,
     };
 
     // validating form
@@ -133,11 +120,6 @@ export default function SignUp() {
       return
     }
 
-    if(values.gender === "") {
-      setFormError({...formError, gender: "Select Your Gender"});
-      return
-    }
-
     if(values.image === {} || values.image === undefined) {
       setFormError({...formError, image: "Image is invalid"});
       return
@@ -157,60 +139,20 @@ export default function SignUp() {
       setFormError({...formError, password: "Password is too short"});
       return
     }
-    
-    // if(values.bitcoinAddress === "") {
-    //   setFormError({...formError, bitcoinAddress: "Address cannot be empty"});
-    //   return
-    // }
-
-    // if(values.bitcoinAddress.length < 10) {
-    //   setFormError({...formError, bitcoinAddress: "Address is too short"});
-    //   return
-    // }
-
-    // if(values.usdtAddress === "") {
-    //   setFormError({...formError, usdtAddress: "Address cannot be empty"});
-    //   return
-    // }
-
-    // if(values.usdtAddress.length < 10) {
-    //   setFormError({...formError, usdtAddress: "Address is too short"});
-    //   return
-    // }
 
     if(values.policyChecked === false) {
       setFormError({...formError, policyChecked: "Please agree to the terms and conditions"});
       return
     }
 
-    if(values.emailChecked === false) {
-      setFormError({...formError, emailChecked: "Please agree to receive emails"});
-      return
-    }
-
     // sending data to server
     signUp(data);
-    // emailjs.sendForm('service_lp8fxjx', 'template_7n2mh1p', form.current, '6DdKsMl4BaIFww4Tv')
-    // .then((result) => {
-    //     console.log(result.text);
-    // }, (error) => {
-    //     console.log(error.text);
-    // });
-
 
     console.log(data);
   };
 
 
   useEffect(() => {
-  axios.get('https://ipapi.co/json/')
-    .then((response) => {
-      setValues(v => ({...v, country: response.data.country_name}));
-      console.log(response.data.country_name)
-  }).catch((error) => {
-      console.log(error);
-  }, []);
-
   if(user) {
     navigate('/dashboard')
   }
@@ -218,9 +160,9 @@ export default function SignUp() {
 
 
   return ((authIsReady && !user) &&
-    <div className={styles.container}>
+    <div className="formCtn">
       <Nav black={true}/>
-      <form className={styles.form} onSubmit={handleSubmit} ref={form}>
+      <form className="form" onSubmit={handleSubmit} ref={form}>
         <h1>Create An Account</h1>
         <TextField 
         id="full_name" 
@@ -277,21 +219,6 @@ export default function SignUp() {
         </Select>
         </FormControl>
 
-        <FormControl fullWidth>
-        <InputLabel id="gender">Gender</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="select gender"
-          value={values.gender}
-          label="Gender"
-          {...(formError.gender && {error: true})}
-          onChange={handleChange('gender')}
-        >
-          <MenuItem value="Male">Male</MenuItem>
-          <MenuItem value="Female">Female</MenuItem>
-        </Select>
-        </FormControl>
-
         {/* password input and event */}
         <FormControl sx={{ width: '100%' }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
@@ -331,45 +258,17 @@ export default function SignUp() {
         variant="outlined" 
         onChange={handleChange("referral")}/>
 
-        <p>Payment Details</p>
-
-        <TextField 
-        id="bitcoin" 
-        label="Your Bitcoin Address"  
-        variant="outlined" 
-        onChange={handleChange("bitcoinAddress")}
-        {...(formError.bitcoinAddress && {error: true, helperText: formError.bitcoinAddress})}/>
-        <TextField 
-        id="usdt" 
-        label="Your USDT Address"  
-        variant="outlined" 
-        onChange={handleChange("usdtAddress")}
-        {...(formError.usdtAddress && {error: true, helperText: formError.usdtAddress})}/>
-        <TextField 
-        id="security_question" 
-        label="Security Question"  
-        variant="outlined" 
-        onChange={handleChange("securityQuestion")}/>
-        <TextField 
-        id="security_answer" 
-        label="Security Answer"  
-        variant="outlined" 
-        onChange={handleChange("securityAnswer")}/>
-
         <div className={styles.checkbox}>
           <input type="checkbox" onClick={handleCheckBox("policyChecked")}/>
           <p>I agree to the <Link to="/policy">Terms and Condition</Link></p>
         </div>
-        <div className={styles.checkbox}>
-          <input type="checkbox" onClick={handleCheckBox("emailChecked")}/>
-          <p>I agree to receive TRUSTSOLID and third party email</p>
-        </div>
         {formError.policyChecked && <p className={styles.error}>{formError.policyChecked}</p>}
         {formError.emailChecked && <p className={styles.error}>{formError.emailChecked}</p>}
-        {error && <p className={styles.error}>{error}</p>}
+        {error && <p className="formError">{error}</p>}
 
-        {!isPending && <button className={styles.btn}>Sign Up</button>}
-        {isPending && <button disabled className={styles.btn} style={{opacity: "50%"}}><PulseLoader color='#000000' size={10}/> </button>}
+        {!isPending && <button className="bigBtn full">Sign up</button>}
+        {isPending && <button disabled className="bigBtn full load"><PulseLoader color='#000000' size={10}/> </button>}
+        {error && <p className="formError">{error}</p>}
         
       <Link to="/login" className={styles.link}>Already have an account? Login</Link>
       </form>

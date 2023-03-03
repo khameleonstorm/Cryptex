@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .wrapper{
@@ -31,8 +31,8 @@
 }
 
 .logo h2{
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 500;
   color: white;
 }
 
@@ -53,8 +53,8 @@
 }
 
 .getStarted{
-  padding: 8px 15px;
-  border-radius: 5px;
+  padding: 7px 15px;
+  border-radius: 8px;
   font-weight: 400;
   font-size: 0.9rem;
   background: rgb(255, 255, 255);
@@ -69,11 +69,11 @@
 }
 
 .login{
-  padding: 8px 15px;
-  border-radius: 5px;
+  padding: 7px 15px;
+  border-radius: 8px;
   font-weight: 400;
   font-size: 0.9rem;
-  background: #5B00CF;
+  background: #00b35f;
   color: #ffffff;
   transition: all 0.3s ease;
 }

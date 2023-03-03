@@ -16,7 +16,7 @@ export const useSignup = () => {
     const navigate = useNavigate()
 
     // 
-    const signUp = async({email, phoneNumber, password, username, image, referral, country, fullName, gender, bitcoinAddress, usdtAddress}) => {
+    const signUp = async({email, phoneNumber, password, username, image, referral, country, fullName,}) => {
 
         setError(null)
         setIsPending(true)
@@ -78,16 +78,15 @@ export const useSignup = () => {
                   fullName,
                   country,
                   referral,
-                  gender,
-                  bitcoinAddress,
-                  usdtAddress,
                   lastLogin: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
                   CreatedAt: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
                   bal: {
-                    balance: 0,
-                    totalDeposit: 0,
+                    cryptoBalance: 0,
+                    fiatBalance: 0,
+                    cryptoDeposit: 0,
+                    fiatDeposit: 0,
                     totalWithdrawal: 0,
-                    referral: 0,
+                    referralBonus: 0,
                   }
                 })
             })

@@ -7,7 +7,6 @@ import { MoonLoader } from 'react-spinners';
 import Nav from '../../components/nav/Nav';
 import Hero from '../../components/hero/Hero';
 import Footer from '../../components/footer/Footer';
-import SectionTrend from '../../components/sectionTrend/SectionTrend';
 
 // import texts from utils 
 
@@ -33,7 +32,6 @@ export default function Home() {
       <>
         <Nav />
         <Hero />
-        <SectionTrend />
         <Footer />
       </>
     )
