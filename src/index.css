@@ -179,6 +179,7 @@ li{
   word-wrap: break-word;
 }
 
+
 @media screen and (max-width: 600px){
 .formCtn{
   background: white;
@@ -193,6 +194,16 @@ li{
 
 .form.left h1{
   text-align: left;
+}
+
+.heroBtn{
+  width: 200px;
+  padding: 5px 5px 5px 40px;
+}
+
+.heroBtn span{
+  width: 40px;
+  height: 40px;
 }
   
 }

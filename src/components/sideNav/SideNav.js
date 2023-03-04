@@ -49,14 +49,14 @@ export default function SideNav() {
           </div>
           }
 
-          {(page === "invest") ?
+          {(page === "trade") ?
           <div className={styles.active}>
-            <IoStatsChartOutline onClick={() => navigate("/dashboard/invest")} className={styles.menuIcon}/> 
-            <p onClick={() => navigate("/dashboard/invest")}>Invest</p>
+            <IoStatsChartOutline onClick={() => navigate("/dashboard/trade")} className={styles.menuIcon}/> 
+            <p onClick={() => navigate("/dashboard/trade")}>Trade</p>
           </div> :
           <div>
-            <IoStatsChart onClick={() => navigate("/dashboard/invest")} className={styles.menuIcon}/> 
-            <p onClick={() => navigate("/dashboard/invest")}>Invest</p>
+            <IoStatsChart onClick={() => navigate("/dashboard/trade")} className={styles.menuIcon}/> 
+            <p onClick={() => navigate("/dashboard/trade")}>Trade</p>
           </div>
           }
 

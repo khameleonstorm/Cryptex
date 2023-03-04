@@ -1,120 +1,98 @@
 import styles from './BalCard.module.css';
-
-// importing icons
-import { MdOutlineShowChart, MdSavings } from 'react-icons/md';
-import { FaCoins } from 'react-icons/fa';
-import { GiCash, GiReceiveMoney } from 'react-icons/gi';
-import { AiFillGift } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-//import useCollection hook
-
+import { useEffect, useState } from 'react';
 
 export default function BalCard({doc}) {
+  const [account, setAccount] = useState("fiat")
+  const [fiatAccount, setFiatAccount] = useState(null)
+  const [cryptoAccount, setCryptoAccount] = useState(null)
+
+  const handleChange = (e) => {
+    setAccount(e.target.value)
+
+    if(e.target.value === "fiat") {
+      setFiatAccount([
+        { balance: doc?.bal.fiatBalance, title: "Fiat Balance", trade: true },
+        { balance: doc?.bal.fiatDeposit, title: "Fiat Deposit" },
+        { balance: doc?.bal.totalWithdrawal, title: "Total Withdraw" },
+        { balance: doc?.bal.referralBonus, title: "Referral Bonus" },
+      ])
+      setCryptoAccount(null)
+      return
+    }
+
+    if(e.target.value === "crypto") {
+      setCryptoAccount([
+        { balance: doc?.bal.cryptoBalance, title: "Crypto Balance", trade: true},
+        { balance: doc?.bal.cryptoDeposit, title: "Crypto Deposit" },
+        { balance: doc?.bal.totalWithdrawal, title: "Total Withdraw" },
+        { balance: doc?.bal.referralBonus, title: "Referral Bonus" },
+      ])
+      setFiatAccount(null)
+      return
+    }
+  }
+
+  useEffect(() => {
+    setFiatAccount([
+      { balance: doc?.bal.fiatBalance, title: "Fiat Balance", trade: true },
+      { balance: doc?.bal.fiatDeposit, title: "Fiat Deposit" },
+      { balance: doc?.bal.totalWithdrawal, title: "Total Withdraw" },
+      { balance: doc?.bal.referralBonus, title: "Referral Bonus" },
+    ])
+  }, [])
 
   return (
     <div className={styles.container}>
       <div>
-      <div className={styles.btns}>
+        <div className={styles.btns}>
           <Link to='/dashboard/deposit'>Deposit</Link>
           <Link to='/dashboard/withdraw'>Withdraw</Link>
+          <FormControl sx={{minWidth: 120 }} size="small" className={styles.selectWrapper}>
+            <InputLabel id="account">Account</InputLabel>
+            <Select value={account} onChange={handleChange} className={styles.select}>
+              <MenuItem value={"fiat"}>Fiat Account</MenuItem>
+              <MenuItem value={"crypto"}>Crypto Account</MenuItem>
+            </Select>
+          </FormControl>
         </div>
-      <div className={styles.balCard}>
-          <div className={styles.card}>
-            <div className={styles.cardheader}>
-              <div className={styles.isactive}>
-                <MdSavings className={styles.circle}/>
-              </div>
-              <div className={styles.cardtitle}>
-                <h3>Crypto Balance</h3>
-              </div>
-            </div>
-  
-            <div className={styles.cardbody}>
-              <h1>{doc?.bal.cryptoBalance}</h1>
-              <MdOutlineShowChart className={styles.chart} style={doc?.bal.cryptoBalance > 0 ?{color: "#00ffaa"} : {color: "#e90000"}}/>
-            </div>
-          </div>
 
-          <div className={styles.card}>
-            <div className={styles.cardheader}>
-              <div className={styles.isactive}>
-                <MdSavings className={styles.circle}/>
-              </div>
-              <div className={styles.cardtitle}>
-                <h3>Fiat Balance</h3>
-              </div>
-            </div>
-  
-            <div className={styles.cardbody}>
-              <h1>{doc?.bal.fiatBalance}</h1>
-              <MdOutlineShowChart className={styles.chart} style={doc?.bal.fiatBalance > 0 ?{color: "#00ffaa"} : {color: "#e90000"}}/>
-            </div>
-          </div>
 
-          <div className={styles.card}>
-            <div className={styles.cardheader}>
-              <div className={styles.isactive}>
-              <FaCoins className={styles.circle}/>
+        <div className={styles.balCard}>
+          {fiatAccount && fiatAccount.map((fiat, i) => 
+            <div className={styles.card} key={i}>
+              <div>
+                <h2>{fiat.title}</h2>
+                <p style={fiat.balance > 0 ?{color: "#00b35f"} : {}}>Activity 100% &darr;</p>
               </div>
-              <div className={styles.cardtitle}>
-                <h3>Crypto Deposit</h3>
+              <h1>{fiat.balance} USD</h1>
+              <div className={styles.btns2}>
+                <Link to='#'>Open trade</Link>
+                <Link to='#'>close trade</Link>
               </div>
             </div>
-  
-            <div className={styles.cardbody}>
-              <h1>{doc?.bal.cryptoDeposit}</h1>
-              <MdOutlineShowChart className={styles.chart} style={doc?.bal.cryptoDeposit > 0 ?{color: "#00ffaa"} : {color: "#e90000"}}/>
-            </div>
-          </div>
+          )}
 
-          <div className={styles.card}>
-            <div className={styles.cardheader}>
-              <div className={styles.isactive}>
-              <FaCoins className={styles.circle}/>
+          {cryptoAccount && cryptoAccount.map((crypto, i) => 
+            <div className={styles.card} key={i}>
+              <div>
+                <h2>{crypto.title}</h2>
+                <p style={crypto.balance > 0 ?{color: "#00b35f"} : {}}>Activity 100% &darr;</p>
               </div>
-              <div className={styles.cardtitle}>
-                <h3>Fiat Deposit</h3>
+              <h1>{crypto.balance} USD</h1>
+              <div className={styles.btns2}>
+                <Link to='#'>Open trade</Link>
+                <Link to='#'>close trade</Link>
               </div>
             </div>
-  
-            <div className={styles.cardbody}>
-              <h1>{doc?.bal.fiatDeposit}</h1>
-              <MdOutlineShowChart className={styles.chart} style={doc?.bal.fiatDeposit > 0 ?{color: "#00ffaa"} : {color: "#e90000"}}/>
-            </div>
-          </div>
+          )}
+        </div>
 
-          <div className={styles.card}>
-            <div className={styles.cardheader}>
-              <div className={styles.isactive}>
-              <GiReceiveMoney className={styles.circle}/>
-              </div>
-              <div className={styles.cardtitle}>
-                <h3>Total Withdrawal</h3>
-              </div>
-            </div>
-  
-            <div className={styles.cardbody}>
-              <h1>{doc?.bal.totalWithdrawal}</h1>
-              <MdOutlineShowChart className={styles.chart} style={doc?.bal.balance > 0 ?{color: "#00ffaa"} : {color: "#e90000"}}/>
-            </div>
-          </div>
-          <div className={styles.card}>
-            <div className={styles.cardheader}>
-              <div className={styles.isactive}>
-                <AiFillGift className={styles.circle}/>
-              </div>
-              <div className={styles.cardtitle}>
-                <h3>Referral Bonus</h3>
-              </div>
-            </div>
-  
-            <div className={styles.cardbody}>
-              <h1>{doc?.bal.referralBonus}</h1>
-              <MdOutlineShowChart className={styles.chart} style={doc?.bal.referralBonus > 0 ?{color: "#00ffaa"} : {color: "#e90000"}}/>
-            </div>
-          </div>
-      </div>
       </div>
     </div>
   )

@@ -10,27 +10,20 @@
 .wrapper{
   width: 100%;
   max-width: 1200px;
-  overflow-x: hidden;
-}
-
-.wrapper::-webkit-scrollbar {
-  width: 0.5em;
-  background-color: #f1f1f1;
-}
-
-.wrapper::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 1em;
 }
 
 .btns{
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
-.btns a:nth-child(1){
+.select{
+  border-radius: 10px !important;
+}
+
+.btns a, .btns2 a{
   padding: 7px 15px;
   border: 1px solid #00b35f;
   border-radius: 10px;
@@ -38,152 +31,116 @@
   transition: all ease-in-out .3s;
 }
 
-.btns a:nth-child(2){
-  padding: 7px 15px;
+.btns a:nth-child(1),
+.btns2 a:nth-child(1){
+  border: 1px solid #00b35f;
+}
+
+.btns a:nth-child(2),
+.btns2 a:nth-child(2){
   border: 1px solid #ff0000;
-  border-radius: 10px;
-  font-size: .9rem;
-  transition: all ease-in-out .3s;
 }
 
 .btns a:nth-child(1):hover,
-.btns a:nth-child(1):focus{
+.btns a:nth-child(1):focus,
+.btns2 a:nth-child(1):hover,
+.btns2 a:nth-child(1):focus{
   background-color: rgba(9, 255, 0, 0.03);
 }
 
 .btns a:nth-child(2):hover,
-.btns a:nth-child(2):focus{
+.btns a:nth-child(2):focus,
+.btns2 a:nth-child(2):hover,
+.btns2 a:nth-child(2):focus{
   background-color: rgba(255, 0, 0, 0.03);
+}
+
+.btns2 a{
+  padding: 5px 10px;
+  font-size: .7rem;
+  border-radius: 7px;
 }
 
 .balCard{
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  min-height: 200px;
+  display: flex;
   gap: 20px;
-  overflow-x: scroll;
-}
-
-.balCard::-webkit-scrollbar {
-  width: 1rem;
-  background-color: #f1f1f1;
-  height: 5px;
-  display: none;
-}
-
-.balCard::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 1rem;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .card{
   width: 230px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border-radius: 15px;
-  background: rgb(249, 249, 249);
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  padding: 10px;
-  margin-bottom: 20px;
-  gap: 15px;
-}
-
-.card:nth-child(1){
-  border-left: 3px solid #00b35f;
-}
-
-.card:nth-child(2){
-  border-left: 3px solid #FFCB7D;
-}
-
-.card:nth-child(3){
-  border-left: 3px solid #BEFF7D;
-}
-
-.card:nth-child(4){
-  border-left: 3px solid #a600cf;
-}
-
-.card:nth-child(5){
-  border-left: 3px solid #7b4604;
-}
-
-.card:nth-child(6){
-  border-left: 3px solid #0033ff;
-}
-
-.cardheader{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.cardtitle{
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  gap: 7px;
-}
-
-.cardtitle h3{
-  font-size: .9rem;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.isactive{
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(310deg, #7b4604 0%, #282454 100%);
+  padding: 15px;
+  background-color: whitesmoke;
   border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all ease-in-out .3s;
+  border-top: 1px solid #00b35f;
 }
 
-.circle{
-  font-size: 1.5rem;
-  color: white;
-}
-
-.cardbody{
-  width: 100%;
+.card div{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.cardbody h1{
-  font-size: 2rem;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 400;
+.card h2{
+  font-size: .7rem;
+  font-weight: 500;
 }
 
-.chart{
-  font-size: 2rem;
+.card p{
+  font-size: .7rem;
+  font-weight: 500;
+  color: #e90000;
+}
+
+.card p span{
+  font-size: 1rem;
+}
+
+.card h1{
+  font-size: 1.7rem;
+  font-weight: 400;
+  padding: 10px 0;
+}
+
+@media screen and (max-width: 1150px){
+.balCard{
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
 }
 
 @media screen and (max-width: 600px){
-.container{
-  min-height: 500px;
-  padding: 0 10px;
-}
-
-.balCard{
+.btns{
   width: 100%;
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-shrink: 0;
+  gap: 5px;
+  padding: 10px 0;
 }
 
+.selectWrapper{
+  width: 40%;
+}
+  
 .card{
   width: 100%;
-  padding: 10px;
-  margin-bottom: 0px;
+}
+}
+
+@media screen and (max-width: 345px){
+.btns{
+  flex-wrap: wrap;
   gap: 10px;
 }
 
+.selectWrapper{
+  width: 60%;
+}
+  
 }

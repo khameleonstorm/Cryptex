@@ -86,10 +86,9 @@ export default function Dashboard() {
       }
 
 
-      {page === 'invest' &&
+      {page === 'trade' &&
       <div className={styles.main}>
         <DashboardNav />
-        <InvestmentCard title={plans.title} subtitle={plans.subtitle} plans={plans.plans} dashboard={true}/>
       </div>
       }
 
