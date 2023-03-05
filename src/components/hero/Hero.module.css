@@ -48,7 +48,7 @@
 @media screen and (max-width: 500px){
 .container{
   height: 60vh;
-  background-size: 250%;
+  background-size: 400%;
 }
 
 .wrapper h1{
