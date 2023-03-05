@@ -25,11 +25,11 @@ export default function Profile({ document }) {
 
       <div className={styles.info}>
         <div className={styles.name}>
-          <h1>@{user.displayName}</h1>
+          <h1>@{user.displayName.length > 10 ? user.displayName.substring(0, 10) + ".." : user.displayName}</h1>
           <p>{user.email}</p>
           <div className={styles.equity}>
             <p>Total Assets</p>
-            <h1>${profile?.bal.balance + profile?.bal.investment + profile?.bal.profit}</h1>
+            <h1>${profile?.bal.cryptoBalance + profile?.bal.fiatBalance + profile?.bal.referralBonus}</h1>
           </div>
         </div>
         <div className={styles.referral}>
@@ -37,22 +37,11 @@ export default function Profile({ document }) {
             <p>Referral Code</p>
             <h1>{user.displayName}</h1>
           </div>
-          <div className={styles.referred}>
-            <div className={styles.referCount}>
-              <p>Referred</p>
-              <h1>0</h1>
-            </div>
-            <div className={styles.referEarn}>
-              <p>Bonus</p>
-              <h1>$0</h1>
-            </div>
-          </div>
         </div>
         <div className={styles.moreDetails}>
-          <h1>Profile Imformation</h1>
+          <h1>Profile Info</h1>
           <div className={styles.details}>
             <p>Full Name: <span>{profile?.fullName}</span></p>
-            <p>Email: <span>{profile?.email}</span></p>
             <p>Email: <span>{profile?.email}</span></p>
             <p>Phone Number: <span>{profile?.phoneNumber}</span></p>
             <p>Country: <span>{profile?.country}</span></p>

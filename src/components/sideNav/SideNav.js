@@ -11,8 +11,7 @@ import useAuth from '../../hooks/useAuth'
 //importing icons
 import {BsPersonFill, BsPerson} from "react-icons/bs";
 import { HiHome, HiOutlineHome, HiOutlineLogout} from "react-icons/hi";
-import { MdOutlineAccountBalance, MdAccountBalance } from 'react-icons/md'
-import { IoStatsChartOutline, IoStatsChart, IoBarChartOutline, IoBarChartSharp } from 'react-icons/io5'
+import { IoStatsChartOutline, IoStatsChart, IoGiftOutline, IoGift, IoWalletOutline, IoWallet } from 'react-icons/io5'
 
 export default function SideNav() {
   const { authIsReady, user } = useAuth()
@@ -40,11 +39,11 @@ export default function SideNav() {
 
           {(page === "deposit") ?
           <div className={styles.active}>
-            <MdOutlineAccountBalance onClick={() => navigate("/dashboard/deposit")} className={styles.menuIcon}/> 
+            <IoWalletOutline onClick={() => navigate("/dashboard/deposit")} className={styles.menuIcon}/> 
             <p onClick={() => navigate("/dashboard/deposit")}>Deposit</p>
           </div> :
           <div>
-            <MdAccountBalance onClick={() => navigate("/dashboard/deposit")} className={styles.menuIcon}/> 
+            <IoWallet onClick={() => navigate("/dashboard/deposit")} className={styles.menuIcon}/> 
             <p onClick={() => navigate("/dashboard/deposit")}>Deposit</p>
           </div>
           }
@@ -73,11 +72,11 @@ export default function SideNav() {
 
           {(page === "referral") ?
           <div className={styles.active}>
-            <IoBarChartOutline onClick={() => navigate("/dashboard/referral")} className={styles.menuIcon}/> 
+            <IoGiftOutline onClick={() => navigate("/dashboard/referral")} className={styles.menuIcon}/> 
             <p onClick={() => navigate("/dashboard/referral")}>Referral</p>
           </div> :
           <div>
-            <IoBarChartSharp onClick={() => navigate("/dashboard/referral")} className={styles.menuIcon}/> 
+            <IoGift onClick={() => navigate("/dashboard/referral")} className={styles.menuIcon}/> 
             <p onClick={() => navigate("/dashboard/referral")}>Referral</p>
           </div>
           }

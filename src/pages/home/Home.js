@@ -6,6 +6,7 @@ import { MoonLoader } from 'react-spinners';
 // Import components
 import Nav from '../../components/nav/Nav';
 import Hero from '../../components/hero/Hero';
+import CryptoChart from '../../components/cryptoChart/CryptoChart';
 import Footer from '../../components/footer/Footer';
 
 // import texts from utils 
@@ -32,6 +33,7 @@ export default function Home() {
       <>
         <Nav />
         <Hero />
+        <CryptoChart />
         <Footer />
       </>
     )

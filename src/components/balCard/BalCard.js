@@ -68,7 +68,7 @@ export default function BalCard({doc}) {
             <div className={styles.card} key={i}>
               <div>
                 <h2>{fiat.title}</h2>
-                <p style={fiat.balance > 0 ?{color: "#00b35f"} : {}}>Activity 100% &darr;</p>
+                <p style={fiat.balance > 0 ?{color: "#00b35f"} : {}}>Activity &darr;100%</p>
               </div>
               <h1>{fiat.balance} USD</h1>
               <div className={styles.btns2}>
