@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import styles from './Trading.module.css';
 
@@ -50,24 +51,34 @@ export default function TradingViewWidget() {
   return (
     <div className={styles.container}>
       <div id='tradingview' className={styles.chart}/>
-      <div className={styles.trade}>
-        <p>Asset <br/> <span>USDT</span></p>
-        <div className={styles.BS}>
-          <p>Buy Rate<br/><span>$1.000</span></p>
-          <p>Sell Rate<br/><span>$1.015</span></p>
+      {
+        <div className={styles.trade1}>
+          <p>Asset <br/> <span>USDT</span></p>
+          <div className={styles.BS}>
+            <p>Buy Rate<br/><span>$1.000</span></p>
+            <p>Sell Rate<br/><span>$1.015</span></p>
+          </div>
+  
+          <p>Number Of Trades Per Day<br/><span>3 Trades</span></p>
+  
+          <div className={styles.note}>
+            <p>Trades completes after 24 hours and automatically renews itself until it's closed.</p>
+          </div>
+  
+          <div className={styles.btns}>
+            <button className='bigBtn full'>Open Trade</button>
+            <button className='bigBtn full'>Close Trade</button>
+          </div>
         </div>
+      }
 
-        <p>Number Of Trades Per Day<br/><span>3 Trades</span></p>
-
-        <div className={styles.note}>
-          <p>Trades completes after 24 hours and automatically renews itself until it's closed.</p>
+      {/* {
+        <div className={styles.trade2}>
+          <h2>Trade</h2>
+          <TextField label="Amount" InputLabelProps={{ shrink: true }} InputProps={{inputMode: 'numeric'}}/>
+          <button className='bigBtn full'>Start Trade</button>
         </div>
-
-        <div className={styles.btns}>
-          <button className='bigBtn full'>Open Trade</button>
-          <button className='bigBtn full'>Close Trade</button>
-        </div>
-      </div>
+      } */}
     </div>
   );
 }
