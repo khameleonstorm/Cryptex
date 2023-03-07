@@ -6,7 +6,6 @@ import useCollection from '../../hooks/useCollection';
 import SideNav from '../../components/sideNav/SideNav';
 import Funding from '../../components/funding/Funding';
 import Profile from '../../components/profile/Profile';
-import InvestmentCard from '../../components/investmentCard/InvestmentCard';
 import BalCard from '../../components/balCard/BalCard';
 
 // importing router functions
@@ -15,9 +14,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 
 // importing plans
-import { plans } from '../../utils/investText';
 import DashboardNav from '../../components/dashboardNav/DashboardNav';
 import Referral from '../../components/referral/Referral';
+import TradingViewWidget from '../../components/trading/Trading';
+// import TradingChart from '../../components/tv/Tv';
 
 
 
@@ -89,6 +89,8 @@ export default function Dashboard() {
       {page === 'trade' &&
       <div className={styles.main}>
         <DashboardNav />
+        <TradingViewWidget />
+        {/* <TradingChart /> */}
       </div>
       }
 

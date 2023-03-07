@@ -157,9 +157,10 @@ li{
   margin: 0 auto;
   gap: 20px;
   background: white;
-  padding: 30px 20px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 15px 0 rgba(255, 255, 255, 0.7);
+  padding-bottom: 30px;
 }
 
 .form h1{
@@ -206,4 +207,10 @@ li{
   height: 40px;
 }
   
+}
+
+@media screen and (max-width: 360px){
+.form h1{
+  font-size: 8vw;
+}
 }

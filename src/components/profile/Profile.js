@@ -29,7 +29,7 @@ export default function Profile({ document }) {
           <p>{user.email}</p>
           <div className={styles.equity}>
             <p>Total Assets</p>
-            <h1>${profile?.bal.cryptoBalance + profile?.bal.fiatBalance + profile?.bal.referralBonus}</h1>
+            <h1>${profile?.bal.balance + profile?.bal.profit + profile?.bal.referralBonus}</h1>
           </div>
         </div>
         <div className={styles.referral}>

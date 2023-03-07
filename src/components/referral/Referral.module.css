@@ -33,8 +33,16 @@
   padding: 20px 0;
 }
 
-.wrapper img{
-  width: 110%
+.imgCtn{
+  display: grid;
+  place-items: center;
+}
+
+.imgCtn img{
+  max-width: 105%;
+  height: auto;
+  object-fit: contain;
+  align-self: center;
 }
 
 .copyWrapper{

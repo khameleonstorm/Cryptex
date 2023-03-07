@@ -4,6 +4,7 @@ import { IoCopy } from 'react-icons/io5';
 import { FaLink } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Referral() {
   const { user } = useAuth();
@@ -34,12 +35,24 @@ export default function Referral() {
     }
   }
 
+  useEffect(() => {
+    const imgCtn = document.getElementById('referral')
+    const img = new Image();
+    img.src = referral;
+    img.alt = 'referrals';
+    img.loading = 'lazy';
+    img.width = 300;
+    img.height = 400;
+    imgCtn.appendChild(img);
+    return () => imgCtn && imgCtn.removeChild(img)
+  }, []);
+
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <h1>Refer A Friend</h1>
-        <img src={referral} alt='refer a friend'/>
+        <div id='referral' className={styles.imgCtn}></div>
         <p>Get 2% of every deposit made by any customer you refer.</p>
         <div className={styles.copyWrapper}>
           <h2>{user.displayName.length > 5 ? user.displayName.substring(0, 5) + ".." : user.displayName}

@@ -72,6 +72,7 @@
 
 .card{
   width: 230px;
+  height: 130px;
   display: flex;
   flex-direction: column;
   padding: 15px;
@@ -139,6 +140,7 @@
 .card{
   width: 100%;
   box-shadow: none;
+  height: auto;
 }
 
 .card p, .card h2{
@@ -150,7 +152,7 @@
 @media screen and (max-width: 345px){
 .btns{
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
 }
 
 .selectWrapper{

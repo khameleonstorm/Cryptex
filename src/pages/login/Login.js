@@ -73,22 +73,20 @@ export default function Login() {
   return ((authIsReady && !user) &&
     <div className="formCtn">
       <Nav black={true}/>
-      <form className="form" onSubmit={handleLogin}>
+      <form className="form" onSubmit={handleLogin} autoComplete="off">
         <h1>Welcome Back!</h1>
         <TextField 
-        id="email" 
         label="Email" 
         variant="outlined" 
-        autoComplete = 'off' 
+        autoComplete='off'
         onChange={handleChange('email')}
         {...(formError.email && {error: true, helperText: formError.email})}/>
 
         {/* password input and event */}
-        <FormControl sx={{ width: '100%' }} variant="outlined">
+        <FormControl sx={{ width: '100%'}} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
-            autoComplete = 'off'
-            id="outlined-adornment-password"
+            autoComplete= 'new-password'
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             {...(formError.password && {error: true, helperText: formError.password})}
