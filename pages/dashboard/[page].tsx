@@ -20,7 +20,7 @@ import BalCard from '@/components/balCard/BalCard';
 
 
 
-export default function index() {
+export default function Index() {
   const { doc, isPending } = useCollection('profile', false, true);
   const { authIsReady, user } = useAuth()
   const navigate = useRouter()

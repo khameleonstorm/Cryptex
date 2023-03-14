@@ -45,7 +45,7 @@ export default function Trading({doc}: doc | any) {
           <div className={s.note}>
             <p>
               Trades completes after 24 hours and automatically 
-              renews itself until it's closed.
+              renews itself until it&apos;s closed.
             </p>
           </div>
   

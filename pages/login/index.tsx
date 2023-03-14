@@ -115,7 +115,7 @@ export default function Login() {
         {isPending && <button disabled className="bigBtn full load"><PulseLoader color='#000000' size={10}/> </button>}
         {error && <p className="formError">{error}</p>}
         
-      <Link href="/signup" className={s.link}>Don't Have An Account?</Link>
+      <Link href="/signup" className={s.link}>Don&apos;t Have An Account?</Link>
       <Link href="/forgotpassword" className={s.link2}>Forgot Password?</Link>
       </form>
 
