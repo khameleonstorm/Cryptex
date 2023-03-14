@@ -1,4 +1,8 @@
-export const countries = [
+type list1 = {[key: string]: string}[]
+type list2 = {[key: string]: string}
+
+
+export const countries: list1 = [
   {
       "country": "Afghanistan",
       "currency_code": "AFN"
@@ -657,7 +661,7 @@ export const countries = [
   },
   {
       "country": "Palestine",
-      "currency_code": null
+      "currency_code": "USD"
   },
   {
       "country": "Panama",
@@ -974,7 +978,7 @@ export const countries = [
 ]
 
 
-export const country_list = {
+export const country_list: list2 = {
   "AED" : "AE",
   "AFN" : "AF",
   "XCD" : "AG",

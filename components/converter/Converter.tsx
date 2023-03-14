@@ -1,8 +1,10 @@
 import styles from './Converter.module.css';
-import { useState } from 'react';
-import { countries, country_list } from '../../utils/countries';
-import btn from "../../assets/convertButton.svg";
+import React, { useState } from 'react';
+import { countries, country_list } from '@/utils/countries';
+import btn from "@/public/assets/convertButton.svg";
 import { MoonLoader } from 'react-spinners';
+import Image from 'next/image';
+
 
 function CurrencyConverter() {
   const [fromCurrency, setFromCurrency] = useState('USD');
@@ -11,7 +13,7 @@ function CurrencyConverter() {
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [isConverting, setIsConverting] = useState(false);
 
-  function hadleConvert (e){
+  function hadleConvert (e: any) {
     setIsConverting(true)
     const myHeaders = new Headers();
     myHeaders.append("apikey", "Nkn0HAvXMRtf3Yx8qhQypLTGQdOnWdHD");
@@ -29,16 +31,16 @@ function CurrencyConverter() {
       setIsConverting(false)
   }
 
-  function handleFromCurrencyChange(event) {
+  function handleFromCurrencyChange(event: any) {
     setFromCurrency(event.target.value);
   }
 
-  function handleToCurrencyChange(event) {
+  function handleToCurrencyChange(event: any) {
     setToCurrency(event.target.value);
   }
 
-  function handleAmountChange(event) {
-    setAmount(event.target.value);
+  function handleAmountChange(event: any) {
+    setAmount(Number(event.target.value));
   }
 
   return (
@@ -48,13 +50,13 @@ function CurrencyConverter() {
         <MoonLoader />
       </div>
       }
-      <img src={btn} alt="button"  className={styles.btn} onClick={hadleConvert}/>
+      <Image src={btn} alt="button"  className={styles.btn} onClick={hadleConvert}/>
       <div className={styles.from}>
         <div className={styles.currency}>
-          <img src={`https://flagcdn.com/72x54/${country_list[fromCurrency].toLowerCase()}.png`} alt='flag' className={styles.flag}/>
+          <Image src={`https://flagcdn.com/72x54/${country_list[fromCurrency].toLowerCase()}.png`} alt='flag' className={styles.flag}/>
 
           <select value={fromCurrency} onChange={handleFromCurrencyChange}>
-            {countries.map((country, i) => 
+            {countries.map((country: any, i) => 
             <option key={i} value={country.currency_code}>{country.currency_code}</option>)}
           </select>
         </div>
@@ -67,11 +69,11 @@ function CurrencyConverter() {
 
         <div className={styles.currency}>
            <select value={toCurrency} onChange={handleToCurrencyChange}>
-            {countries.map((country, i) => 
+            {countries.map((country: any, i) => 
             <option key={i} value={country.currency_code}>{country.currency_code}</option>)}
           </select>
 
-          <img src={`https://flagcdn.com/72x54/${country_list[toCurrency].toLowerCase()}.png`} alt='flag' className={styles.flag}/>
+          <Image src={`https://flagcdn.com/72x54/${country_list[toCurrency].toLowerCase()}.png`} alt='flag' className={styles.flag}/>
         </div>
       </div>
     </form>
