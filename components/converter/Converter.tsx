@@ -13,10 +13,12 @@ function CurrencyConverter() {
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [isConverting, setIsConverting] = useState(false);
 
+  let apiKey: string|undefined = process.env.CONVERT_KEY;
+
   function hadleConvert (e: any) {
     setIsConverting(true)
     const myHeaders = new Headers();
-    myHeaders.append("apikey", "Nkn0HAvXMRtf3Yx8qhQypLTGQdOnWdHD");
+    if(apiKey) myHeaders.append("apikey", apiKey);
 
     const requestOptions = {
       method: 'GET',
