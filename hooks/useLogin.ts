@@ -20,37 +20,33 @@ export const useLogin = () => {
         try {
             const res: any = await signInWithEmailAndPassword(Auth, email, password)
 
-            if (!res) {
-                throw new Error("Can't login at the moment")
-            }
+            if (!res) throw new Error("Can't login at the moment")
+            
             const docRef = doc(db, 'profile', res.user.email)
 
             await updateDoc(docRef, {online: true})
             
             // dispatching a logout function
             dispatch({ type: 'LOGIN', payload: res.user })
-
+            
             if(!isCancelled){
-                setError(null)
-                setIsPending(false)
+              setError(null)
+              setIsPending(false)
             }
-
-            if(res.user.displayName === 'admin'){
-                navigate.push('/admin')
-            } else{
-                navigate.push('/dashboard')
-            }
-
-        } catch (err: any) {
+            
+          } catch (err: any) {
             if(err){
-                console.log(err.message)
-                setError(err.message)
-                setTimeout(() => {
-                    setError(null)
-                }, 5000);
-                setIsPending(false)
-             }
-        }
+              setError(err.message)
+              setTimeout(() => setError(null), 5000);
+              setIsPending(false)
+            }
+          }
+
+        // Load the dashboard page using dynamic import
+        import('../pages/dashboard').then((module) => {
+          const Dashboard = module.default
+              navigate.push("/dashboard/home")
+        })
     }
 
     useEffect(() => {

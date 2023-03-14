@@ -20,10 +20,10 @@ export default function SideNav() {
   const page = navigate.query.page
   
 
-  return (authIsReady &&
+  return (authIsReady && user &&
     <div className={styles.container}>
         <div className={styles.profile}>
-            <img src={user?.photoURL ? user?.photoURL : `https://robohash.org/${user.uid}`} alt="avatar"/>
+            <img src={user.photoURL ? user.photoURL : `https://robohash.org/${user.uid}`} alt="avatar"/>
         </div>
         <div className={styles.links}>
           {page === undefined || page === "home" ? 

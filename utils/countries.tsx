@@ -1,8 +1,8 @@
-type list1 = {[key: string]: string}[]
+
 type list2 = {[key: string]: string}
 
 
-export const countries: list1 = [
+export const countries: Array<list2> = [
   {
       "country": "Afghanistan",
       "currency_code": "AFN"

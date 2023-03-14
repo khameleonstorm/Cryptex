@@ -18,7 +18,7 @@ export default function BalCard({doc}: doc | any) {
       ])
   }, [doc])
 
-  return (
+  return (doc &&
     <div className={styles.container}>
       <div>
         <div className={styles.btns}>

@@ -71,7 +71,7 @@ export default function SignUp() {
 
 
   // handling change for input fields
-  const handleChange = (prop: string) => (e: CE) => {
+  const handleChange = (prop: string|any) => (e: CE) => {
     setValues({ ...values, [prop]: e.target.value });
     setFormError({ ...formError, [prop]: null })
   };
@@ -99,7 +99,7 @@ export default function SignUp() {
 
 
   // handling form submit
-  const handleSubmit = (e: FE) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const data = {
       fullName: values.fullName,
@@ -169,21 +169,21 @@ export default function SignUp() {
       return
     }
 
-    if(values.policyChecked === false) {
-      setFormError({...formError, policyChecked: "Please agree to the terms and conditions"});
-      return
-    }
+    // if(values.policyChecked === false) {
+    //   setFormError({...formError, policyChecked: "Please agree to the terms and conditions"});
+    //   return
+    // }
 
     // sending data to server
+    console.log(data);
     signUp(data);
 
-    console.log(data);
   };
 
 
   useEffect(() => {
   if(user) {
-    navigate.push('/dashboard')
+    navigate.push('/dashboard/home')
   }
   }, [user, navigate]);
 
@@ -235,13 +235,14 @@ export default function SignUp() {
         <FormControl fullWidth>
         <InputLabel id="country">Country</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
           id="country"
           value={values.country}
           label="Country"
           {...(formError.country && {error: true})}
-          onChange={() => handleChange('country')}
-        >
+          onChange={(e) => {
+            setValues({...values, country: e.target.value})
+            setFormError({...formError, country: null})
+          }}>
           {countries.map((country, i) => (
             <MenuItem key={i} value={country.country}>{country.country}</MenuItem>
             ))}
@@ -294,7 +295,7 @@ export default function SignUp() {
         {formError.policyChecked && <p className={s.error}>{formError.policyChecked}</p>}
         {error && <p className="formError">{error}</p>}
 
-        {!isPending && <button className="bigBtn full">Sign up</button>}
+        {!isPending && <button className="bigBtn full" type='submit'>Sign up</button>}
         {isPending && <button disabled className="bigBtn full load"><PulseLoader color='#000000' size={10}/> </button>}
         {error && <p className="formError">{error}</p>}
         

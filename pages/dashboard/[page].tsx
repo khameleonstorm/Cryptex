@@ -24,30 +24,14 @@ export default function Index() {
   const { doc, isPending } = useCollection('profile', false, true);
   const { authIsReady, user } = useAuth()
   const navigate = useRouter()
-  const page = navigate.query.page
+  const { page } = navigate.query
 
   useEffect(() => {
-    const chatDiv = document.getElementById('tidio-chat')
-    if(chatDiv){
-      chatDiv.style.display = 'none';
+    if(user && authIsReady){
+      if(user.email === "trustsolidfx@gmail.com") navigate.push('/admin')
     }
-
-    if(authIsReady){
-      if(user.email === "trustsolidfx@gmail.com"){
-        navigate.push('/admin')
-      }
-      if(!user){
-        navigate.push('/login')
-      }
-    }
-
-    return () => {
-      if(chatDiv){
-        chatDiv.style.display = 'block';
-      }
-    }
-
-  }, [authIsReady, user, navigate])
+    if(authIsReady && !user) navigate.push('/login')
+  }, [user, navigate, authIsReady])
 
 
 
@@ -64,13 +48,13 @@ export default function Index() {
 
 
 
-  return ((authIsReady && user?.email !== "trustsolidfx@gmail.com" && doc) &&
+  return ((user && doc && authIsReady) &&
     <div className={s.container}>
       <div className={s.side}>
         <SideNav />
       </div>
 
-      {(page === undefined || page === 'home') &&
+      {page === 'home' &&
       <div className={s.main}>
         <DashboardNav />
         <BalCard doc={doc[0]}/>

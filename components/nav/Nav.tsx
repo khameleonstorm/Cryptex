@@ -45,7 +45,7 @@ export default function Nav(props: {black?: boolean}) {
             </>
               }
 
-            {user && <Link className={s.getStarted} href="/dashboard">Dashboard</Link> }
+            {user && <Link className={s.getStarted} href="/dashboard/home">Dashboard</Link> }
           </div>
           }
 

@@ -8,7 +8,7 @@ export default function Hero() {
 
   const handleNavigate = () => {
     if (user) {
-      navigate.push('/dashboard');
+      navigate.push('/dashboard/home');
     } else {
       navigate.push('/login');
     }

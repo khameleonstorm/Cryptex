@@ -115,7 +115,7 @@ export const useSignup = () => {
         if(res.user.displayName === 'admin'){
           navigate.push('/admin')
         } else{
-            navigate.push('/dashboard')
+            navigate.push('/dashboard/home')
         }
 
         } catch (err: any) {

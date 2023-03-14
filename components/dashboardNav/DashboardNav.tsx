@@ -36,7 +36,7 @@ export default function DashboardNav() {
         <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={handleClick}/>
         {menu && 
           <div className={s.menu} onClick={handleClick}>
-            <Link href="/home">Home</Link>
+            <Link href="/">Home</Link>
             <Button variant="outlined" color="error" size="small" style={{fontSize: "0.7rem"}} onClick={logout}> 
               Logout <HiOutlineLogout size="1.3em" style={{marginLeft: "1rem"}}/>
             </Button>
