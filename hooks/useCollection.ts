@@ -28,15 +28,12 @@ export default function useCollection(coll: string, allUsers: boolean, singleUse
         q, 
         (snapshot) => {
           let results: Array<object> = []
-          snapshot.forEach(doc => {
-            results.push({ ...doc.data(), id: doc.id})
-          })
+          snapshot.forEach(doc => results.push({ ...doc.data(), id: doc.id}))
 
-            // setting doc state
-            setDoc(results)
-            setError(null)
-            setIsPending(false)
-
+          // setting doc state
+          setDoc(results)
+          setError(null)
+          setIsPending(false)
         },
         (error) => {
           // ...setting error param

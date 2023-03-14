@@ -10,13 +10,13 @@ import { useRouter } from "next/router";
 
 interface person {
   fullName: string,
-    email: string,
-    phoneNumber: string,
-    password: string,
-    username: string,
-    image: any,
-    referral: string,
-    country: string,
+  email: string,
+  phoneNumber: string|number,
+  password: string,
+  username: string,
+  image: File,
+  referral: string,
+  country: string,
 }
 
 
@@ -33,7 +33,6 @@ export const useSignup = () => {
         setIsPending(true)
 
         try {
-
             // sign up user
             const res: any = await createUserWithEmailAndPassword(Auth, email, password)
 

@@ -41,11 +41,11 @@ export default function Referral() {
       <div className={s.wrapper}>
         <h1>Refer A Friend</h1>
         <div className={s.imgCtn}>
-          <Image src={referral} alt="referral" width="300" height="400" priority/>
+          <Image src={referral} alt="referral" width="300" height="300" priority/>
         </div>
         <p>Get 2% of every deposit made by any customer you refer.</p>
         <div className={s.copyWrapper}>
-          <h2>{user.displayName.length > 5 ? user.displayName.substring(0, 5) + ".." : user.displayName}
+          <h2>{user.displayName?.length > 5 ? user.displayName.substring(0, 5) + ".." : user.displayName}
           </h2>
           <div className={s.icons}>
             <IoCopy style={copyText ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard2(user.displayName)}/>

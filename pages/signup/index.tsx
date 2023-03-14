@@ -21,7 +21,7 @@ interface valueFields {
   email: string,
   phoneNumber: string,
   country: string,
-  image: {[key : string] : string|number|File|undefined|boolean, size?: number},
+  image: File,
   referral: string,
   policyChecked: boolean,
   showPassword?: boolean,
@@ -34,7 +34,7 @@ interface errorFields {
     password: string | null,
     phoneNumber: string | null,
     country: string | null,
-    image: any,
+    image: string | null,
     referral: string | null,
     policyChecked: string | null,
   }
@@ -51,7 +51,7 @@ export default function SignUp() {
     email: "",
     phoneNumber: "",
     country: "",
-    image: {},
+    image: new File([""], "undefined"),
     referral: '',
     policyChecked: false,
     showPassword: false,
@@ -92,14 +92,14 @@ export default function SignUp() {
   };
 
   // handling checkbox
-  const handleCheckBox = (prop: string) => (e: CE) => {
-    setValues({...values, [prop]: e.target.checked});
-    setFormError({ ...formError, [prop]: null })
+  const handleCheckBox = (e: CE) => {
+    setValues({...values, policyChecked: e.target.checked});
+    setFormError({ ...formError, policyChecked: null })
   };
 
 
   // handling form submit
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FE) => {
     e.preventDefault();
     const data = {
       fullName: values.fullName,
@@ -113,23 +113,13 @@ export default function SignUp() {
     };
 
     // validating form
-    if(values.fullName === "") {
-      setFormError({...formError, fullName: "Full name is invalid"});
+    if(values.fullName === "" || values.fullName.length < 3) {
+      setFormError({...formError, fullName: "name can't be null or < 3 characters"});
       return
     }
 
-    if(values.fullName.length < 3) {
-      setFormError({...formError, fullName: "Full name is too short"});
-      return
-    }
-
-    if(values.username === "") {
-      setFormError({...formError, username: "Username is invalid"});
-      return
-    }
-
-    if(values.username.length < 3) {
-      setFormError({...formError, username: "Username is too short"});
+    if(values.username === "" || values.username.length < 3) {
+      setFormError({...formError, username: "Username can't be null or < 3 characters"});
       return
     }
 
@@ -148,31 +138,20 @@ export default function SignUp() {
       return
     }
 
-    if(values.image === null || values.image === undefined) {
-      setFormError({...formError, image: "Image is invalid"});
+    if(values.image.name === "undefined" || values.image.size > 5000000) {
+      setFormError({...formError, image: "Image is invalid or too large"});
       return
     }
 
-    if(values.image.size) {
-      if(values.image.size > 5000000)
-      setFormError({...formError, image: "Image size is too large"});
+    if(password === "" || password.length < 6) {
+      setFormError({...formError, password: "Password can't be null or < 6 characters"});
       return
     }
 
-    if(password === "") {
-      setFormError({...formError, password: "Password is invalid"});
+    if(values.policyChecked === false) {
+      setFormError({...formError, policyChecked: "Please agree to the terms and conditions"});
       return
     }
-
-    if(password.length < 6) {
-      setFormError({...formError, password: "Password is too short"});
-      return
-    }
-
-    // if(values.policyChecked === false) {
-    //   setFormError({...formError, policyChecked: "Please agree to the terms and conditions"});
-    //   return
-    // }
 
     // sending data to server
     console.log(data);
@@ -277,7 +256,7 @@ export default function SignUp() {
           />
         </FormControl>
         <div className={s.upload}>
-          <p>{values.image.name === undefined? "Upload Profile Picture" : `${values.image.name}`}</p>
+          <p>{values.image.name === "undefined" ? "Upload Profile Picture" : `${values.image.name}`}</p>
           {formError.image && <p className={s.error}>{formError.image}</p>}
           <input accept="image/*" type="file" onChange={handleImageUpload}/>
           <AiFillCamera />
@@ -289,7 +268,7 @@ export default function SignUp() {
         onChange={handleChange("referral")}/>
 
         <div className={s.checkbox}>
-          <input type="checkbox" onClick={() => handleCheckBox("policyChecked")}/>
+          <input type="checkbox" onChange={(e) => handleCheckBox(e)}/>
           <p>I agree to the <Link href="/policy">Terms and Condition</Link></p>
         </div>
         {formError.policyChecked && <p className={s.error}>{formError.policyChecked}</p>}

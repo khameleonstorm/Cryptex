@@ -20,10 +20,14 @@ export default function Trading({doc}: doc | any) {
 
   const startTrade = () => {
     setError(null)
+    
+    console.log(amount, )
+    fetch("/api/trade")
+    .then(res => res.json())
+    .then(data => console.log(data))
+    
     if(amount < 10) return setError("Minimum amount is $10")
     if(doc?.bal.balance < amount) return setError("Insufficient balance")
-
-    console.log(amount, )
   }
 
 

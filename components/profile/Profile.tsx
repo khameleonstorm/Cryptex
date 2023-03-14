@@ -1,4 +1,4 @@
-import styles from './Profile.module.css';
+import s from './Profile.module.css';
 import useAuth from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
 
@@ -29,40 +29,42 @@ export default function Profile({ document }: Props | any): JSX.Element {
   useEffect(() => {
     if (document) setProfile(document.find((doc: object|any) => doc.email === user.email));
     if (profile?.bal) setTotal(profile?.bal.balance + profile?.bal.profit + profile?.bal.referralBonus)
+
+    console.log(document)
   }, [document, user]);
 
 
   return (
-    <div className={styles.container}>
-      <div className={styles.profile}>
-        <div className={styles.cover}>
-          <img className={styles.img} src={user.photoURL} alt="avatar" />
-          <img className={styles.avatar} src={user.photoURL} alt="avatar" />
+    <div className={s.container}>
+      <div className={s.profile}>
+        <div className={s.cover}>
+          <img className={s.img} src={user.photoURL} alt="avatar" />
+          <img className={s.avatar} src={user.photoURL} alt="avatar" />
         </div>
       </div>
 
-      <div className={styles.info}>
-        <div className={styles.name}>
+      <div className={s.info}>
+        <div className={s.name}>
           <h1>
-            @{user.displayName.length > 10
-              ? user.displayName.substring(0, 10) + '..'
+            @{user.displayName?.length > 10
+              ? user.displayName?.substring(0, 10) + '..'
               : user.displayName}
           </h1>
           <p>{user.email}</p>
-          <div className={styles.equity}>
+          <div className={s.equity}>
             <p>Total Assets</p>
             <h1>${total}</h1>
           </div>
         </div>
-        <div className={styles.referral}>
-          <div className={styles.referralCode}>
+        <div className={s.referral}>
+          <div className={s.referralCode}>
             <p>Referral Code</p>
             <h1>{user.displayName}</h1>
           </div>
         </div>
-        <div className={styles.moreDetails}>
+        <div className={s.moreDetails}>
           <h1>Profile Info</h1>
-          <div className={styles.details}>
+          <div className={s.details}>
             <p>
               Full Name: <span>{profile?.fullName}</span>
             </p>
