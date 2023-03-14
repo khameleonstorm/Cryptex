@@ -1,0 +1,44 @@
+import Link from 'next/link';
+import s from './Footer.module.css';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaTelegramPlane } from 'react-icons/fa';
+import { AiFillInstagram } from 'react-icons/ai';
+
+
+export default function Footer() {
+  return (
+    <div className={s.container}>
+      <div className={s.address}>
+        <h1>Cryptex</h1>
+        <p>Cecilia Chapman 711-2880 Nulla St. Mankato Mississippi 96522</p>
+        <h2>Email</h2>
+        <a href="tel:+123456789101">+12 345 678 9101</a>
+        <h2>Phone</h2>
+        <a href="mailto:hello.cryptex@gmail.com">hello.cryptex@gmail.com</a>
+      </div>
+      <div className={s.links}>
+        <h2>Useful Links</h2>
+        <Link href="/home">Home</Link>
+        <Link href="/about">About</Link>
+        <Link href="#contact">Contact</Link>
+      </div>
+      <div className={s.services}>
+        <h2>Services</h2>
+        <Link href="#services">Trading</Link>
+        <Link href="/plans">Investment</Link>
+        <Link href="#contact">Consultancy</Link>
+        <Link href="#contact">Signals</Link>
+      </div>
+      <div className={s.socials}>
+        <h2>Our Social Networks</h2>
+        <p>connect with us on our social network.</p>
+        <div className={s.icons}>
+          <Link href="#"><FaFacebookF /></Link>
+          <Link href="#"><FaTwitter /></Link>
+          <Link href="#"><FaLinkedinIn /></Link>
+          <Link href="#"><FaTelegramPlane /></Link>
+          <Link href="#"><AiFillInstagram /></Link>    
+        </div>
+      </div>
+    </div>
+  )
+}
