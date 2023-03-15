@@ -175,7 +175,7 @@ li{
 }
 
 .formError{
-  color: rgb(247, 45, 45);
+  color: rgb(247, 45, 45) !important;
   font-size: 0.9rem;
   word-wrap: break-word;
 }

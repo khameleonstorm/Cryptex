@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { HiOutlineLogout } from "react-icons/hi";
 import { useLogout } from "@/hooks/useLogout"
 import useAuth from "@/hooks/useAuth"
+import Image from 'next/image';
 
 export default function DashboardNav() {
   const { authIsReady, user } = useAuth()
@@ -31,7 +32,7 @@ export default function DashboardNav() {
       </div>
       <div className={s.logo}>
         <div className={s.image}>
-          <img src={user?.photoURL ? user?.photoURL : `https://robohash.org/${user.uid}`} alt="Avatar!" />
+          <Image src={user?.photoURL ? user?.photoURL : `https://robohash.org/${user.uid}`} alt="Avatar!" />
         </div>
         <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={handleClick}/>
         {menu && 

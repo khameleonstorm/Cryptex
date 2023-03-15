@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-          <h1> Buy & Sell Fiat & Crypto <span>Assets.</span></h1>
+          <h1>Automated <span>crypto</span> flipping system</h1>
           <button className="heroBtn" onClick={handleNavigate}>Get Started <span>→</span></button>
       </div>
     </div>

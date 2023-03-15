@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { PulseLoader } from 'react-spinners';
 
 
+
 type FE = React.FormEvent<HTMLFormElement>
 type CE = React.ChangeEvent<HTMLInputElement>
 
@@ -51,7 +52,7 @@ export default function SignUp() {
     email: "",
     phoneNumber: "",
     country: "",
-    image: new File([""], "undefined"),
+    image: {} as File,
     referral: '',
     policyChecked: false,
     showPassword: false,
@@ -89,6 +90,7 @@ export default function SignUp() {
   // handling image upload
   const handleImageUpload = (e: any) => {
     setValues({...values, image: e.target.files[0] });
+    setFormError({ ...formError, image: null })
   };
 
   // handling checkbox
@@ -138,7 +140,7 @@ export default function SignUp() {
       return
     }
 
-    if(values.image.name === "undefined" || values.image.size > 5000000) {
+    if(values.image.name === undefined || values.image.size > 5000000) {
       setFormError({...formError, image: "Image is invalid or too large"});
       return
     }
@@ -256,8 +258,8 @@ export default function SignUp() {
           />
         </FormControl>
         <div className={s.upload}>
-          <p>{values.image.name === "undefined" ? "Upload Profile Picture" : `${values.image.name}`}</p>
-          {formError.image && <p className={s.error}>{formError.image}</p>}
+          {!formError.image && <p>{values.image?.name === undefined ? "Upload Profile Picture" : `${values.image.name}`}</p>}
+          {formError.image && <p className="formError">{formError.image}</p>}
           <input accept="image/*" type="file" onChange={handleImageUpload}/>
           <AiFillCamera />
         </div>

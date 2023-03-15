@@ -40,7 +40,7 @@ export default function Nav(props: {black?: boolean}) {
 
             {!user &&
             <>
-              <Link className={s.getStarted} href="/signUp">Sign up</Link>
+              <Link className={s.getStarted} href="/signup">Sign up</Link>
               <Link className={s.login} href="/login">Login</Link>
             </>
               }

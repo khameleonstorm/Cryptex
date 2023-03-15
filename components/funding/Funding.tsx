@@ -162,7 +162,7 @@ export default function Funding() {
             {imageList.map((image, i) => (
               <Fragment key={i}>
                 <div className={s.imgCtn2}>
-                  <img src={image['data_url']} alt="proof"/>
+                  <Image src={image['data_url']} alt="proof"/>
                 <div className={s.btns2}>
                   <button className="bigBtn full" style={{...overwrite}} onClick={() => onImageUpdate(i)}>Update</button>
                   <button className="bigBtn full" style={{...overwrite}} onClick={() => onImageRemove(i)}>Remove</button>

@@ -1,6 +1,7 @@
 import s from './Profile.module.css';
 import useAuth from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 interface Document {
   email: string;
@@ -28,18 +29,18 @@ export default function Profile({ document }: Props | any): JSX.Element {
 
   useEffect(() => {
     if (document) setProfile(document.find((doc: object|any) => doc.email === user.email));
-    if (profile?.bal) setTotal(profile?.bal.balance + profile?.bal.profit + profile?.bal.referralBonus)
+    if (profile) setTotal(profile?.bal.balance + profile?.bal.profit + profile?.bal.referralBonus)
 
     console.log(document)
-  }, [document, user]);
+  }, [document, user, profile]);
 
 
   return (
     <div className={s.container}>
       <div className={s.profile}>
         <div className={s.cover}>
-          <img className={s.img} src={user.photoURL} alt="avatar" />
-          <img className={s.avatar} src={user.photoURL} alt="avatar" />
+          <Image className={s.img} src={user.photoURL} alt="avatar" />
+          <Image className={s.avatar} src={user.photoURL} alt="avatar" />
         </div>
       </div>
 
