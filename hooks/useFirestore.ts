@@ -48,7 +48,7 @@ export function useFirestore(coll: string) {
 
                 await setDoc(docRef, data)
     
-                dispatch({type: "SET_DOC", payload: docRef})
+                dispatch({type: "SET_DOC", payload: data})
             }
 
         } catch (error: any) {
@@ -140,10 +140,7 @@ export function useFirestore(coll: string) {
     }
     
     useEffect(()=>{
-        if (res) {
-            setNotCancelled(true)
-        }
-
+        if (res) setNotCancelled(true)
 
         return () => setNotCancelled(false)
     }, [res])

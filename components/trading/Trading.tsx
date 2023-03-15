@@ -3,31 +3,26 @@ import { useState } from 'react';
 import BigChart from '../bigChart/BigChart';
 import s from './Trading.module.css';
 import { useRouter } from 'next/router';
+import startTrade from '@/hooks/startTrade';
+import { TbSquareRoundedCheckFilled } from "react-icons/tb"
 
-type acc = Array<object>
 type doc =  {[key: string]: {[key: string]: {[key: string]: number}}}
 
 export default function Trading({doc}: doc | any) {
   const [page, setPage] = useState(1);
   const [amount, setAmount] = useState<string|number>(0);
-  const [error, setError] = useState<string|null>(null)
   const navigate = useRouter();
+  const { error, isPending, success, initiateTrade } = startTrade();
 
 
   const handleNavigate = () => {
-    navigate.push("/dashboard");
+    navigate.push("/dashboard/home");
   }
 
-  const startTrade = () => {
-    setError(null)
-    
-    console.log(amount, )
-    fetch("/api/trade")
-    .then(res => res.json())
-    .then(data => console.log(data))
-    
-    if(amount < 10) return setError("Minimum amount is $10")
-    if(doc?.bal.balance < amount) return setError("Insufficient balance")
+  const handleTrade = () => {
+    const data = { amount: Number(amount), doc }
+    initiateTrade(data);
+    console.log(data)
   }
 
 
@@ -62,9 +57,19 @@ export default function Trading({doc}: doc | any) {
 
       {page === 2 &&
         <div className={s.trade2}>
+          {success &&
+          <div className={s.successModal}>
+            <p className='formSuccess'>Trade initiated and will be completed in 24 hours</p>
+            <TbSquareRoundedCheckFilled />
+            <button style={{...overwrite}} className='bigBtn full' onClick={handleNavigate}><span style={{...span2}}>&larr;</span> Back To Dashboard </button>
+          </div>
+          }
+          
           <h2>Trade</h2>
           <TextField label="Amount" InputLabelProps={{ shrink: true }} type="number" onChange={e => setAmount(e.target.value)} value={amount}/>
-          <button style={{...overwrite}} className='bigBtn full' onClick={startTrade}>Start Trade</button>
+          {!isPending && <button style={{...overwrite}} className='bigBtn full' onClick={handleTrade}>Start Trade</button>}
+          {isPending && <button style={{...overwrite}} className='bigBtn full'>Loading...</button>}
+          {error && <p className='formError'>{error}</p>}
           <button style={{...overwrite}} className='bigBtn full' onClick={handleNavigate}><span style={{...span2}}>&larr;</span> Back To Dashboard </button>
         </div>
       }

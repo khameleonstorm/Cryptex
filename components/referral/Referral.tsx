@@ -45,11 +45,11 @@ export default function Referral() {
         </div>
         <p>Get 2% of every deposit made by any customer you refer.</p>
         <div className={s.copyWrapper}>
-          <h2>{user.displayName?.length > 5 ? user.displayName.substring(0, 5) + ".." : user.displayName}
+          <h2>{user.uid?.length > 5 ? user.uid.substring(0, 5) + ".." : user.uid}
           </h2>
           <div className={s.icons}>
-            <IoCopy style={copyText ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard2(user.displayName)}/>
-            <FaLink style={copyLink ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard(`https://cryptex-three.vercel.app/signUp/${user.displayName}`)}/>
+            <IoCopy style={copyText ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard2(user.uid)}/>
+            <FaLink style={copyLink ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard(`https://cryptex-three.vercel.app/signup/${user.uid}`)}/>
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ interface person {
   password: string,
   username: string,
   image: File,
-  referral: string,
+  referral: string | string[] | undefined,
   country: string,
 }
 

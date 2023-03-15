@@ -14,8 +14,9 @@ import { MoonLoader } from 'react-spinners';
 
 export default function Index() {
   const { doc, isPending } = useCollection('profile', false, true);
-  const { user, authIsReady } = useAuth()
+  const { authIsReady, user } = useAuth()
   const navigate = useRouter()
+  const { page } = navigate.query
 
   useEffect(() => {
     if(user && authIsReady){
@@ -44,9 +45,28 @@ export default function Index() {
       <div className={s.side}>
         <SideNav />
       </div>
-      
+
+      {page === 'home' &&
       <div className={s.main}>
       </div>
+      } 
+
+      {page === 'deposit' &&
+      <div className={s.main}>
+      </div>
+      }
+
+
+      {page === 'trade' &&
+      <div className={s.main}>
+      </div>
+      }
+
+      {page === 'referral' &&
+      <div className={s.main}>
+      </div>
+      }
+      
     </div>
   )
 }

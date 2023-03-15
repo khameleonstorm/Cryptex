@@ -23,7 +23,7 @@ interface valueFields {
   phoneNumber: string,
   country: string,
   image: File,
-  referral: string,
+  referral: string | string[] | undefined,
   policyChecked: boolean,
   showPassword?: boolean,
 }
@@ -44,6 +44,7 @@ interface errorFields {
 export default function SignUp() {
   const { authIsReady, user } = useAuth()
   const navigate = useRouter()
+  const { id } = navigate.query
   const {signUp, isPending, error} = useSignup()
   const [password, setPassword] = useState("");
   const [values, setValues] = useState<valueFields>({
@@ -53,7 +54,7 @@ export default function SignUp() {
     phoneNumber: "",
     country: "",
     image: {} as File,
-    referral: '',
+    referral: id,
     policyChecked: false,
     showPassword: false,
   });
@@ -267,6 +268,7 @@ export default function SignUp() {
         id="referral_code" 
         label="Referral Code(Optional)" 
         variant="outlined" 
+        value={values.referral}
         onChange={handleChange("referral")}/>
 
         <div className={s.checkbox}>
