@@ -1,7 +1,7 @@
 import s from './Profile.module.css';
 import useAuth from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 interface Document {
   email: string;
@@ -39,8 +39,10 @@ export default function Profile({ document }: Props | any): JSX.Element {
     <div className={s.container}>
       <div className={s.profile}>
         <div className={s.cover}>
-          <Image className={s.img} src={user.photoURL} alt="avatar" />
-          <Image className={s.avatar} src={user.photoURL} alt="avatar" />
+          <Image className={s.img} src={user.photoURL} alt="avatar" layout='fill' priority/>
+          <div className={s.avatar}>
+            <Image src={user.photoURL} alt="avatar" layout='fill' priority/>
+          </div>
         </div>
       </div>
 

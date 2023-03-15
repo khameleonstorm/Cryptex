@@ -12,7 +12,7 @@ import useAuth from '../../hooks/useAuth'
 import {BsPersonFill, BsPerson} from "react-icons/bs";
 import { HiHome, HiOutlineHome, HiOutlineLogout} from "react-icons/hi";
 import { IoStatsChartOutline, IoStatsChart, IoGiftOutline, IoGift, IoWalletOutline, IoWallet } from 'react-icons/io5'
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 export default function SideNav() {
   const { authIsReady, user } = useAuth()
@@ -24,7 +24,11 @@ export default function SideNav() {
   return (authIsReady && user &&
     <div className={styles.container}>
         <div className={styles.profile}>
-            <Image src={user.photoURL ? user.photoURL : `https://robohash.org/${user.uid}`} alt="avatar"/>
+            <Image 
+            src={user.photoURL ? user.photoURL : `https://robohash.org/${user.uid}`} 
+            alt="avatar"
+            width="50"
+            height="50" priority/>
         </div>
         <div className={styles.links}>
           {page === undefined || page === "home" ? 
