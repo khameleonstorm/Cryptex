@@ -27,7 +27,7 @@
   padding: 7px 15px;
   border: 1px solid #00b35f;
   border-radius: 10px;
-  font-size: .9rem;
+  font-size: 1rem;
   transition: all ease-in-out .3s;
 }
 
@@ -57,7 +57,7 @@
 
 .btns2 a{
   padding: 5px 10px;
-  font-size: .7rem;
+  font-size: .8rem;
   border-radius: 7px;
 }
 
@@ -121,11 +121,12 @@
   flex-shrink: 0;
   gap: 5px;
   padding: 10px 0;
+  font-size: 18px;
 }
 
 .btns2 a{
   padding: 7px 13px;
-  font-size: .9rem;
+  font-size: 1rem;
   border-radius: 8px;
 }
 
@@ -144,7 +145,11 @@
 }
 
 .card p, .card h2{
-  font-size: .9rem;
+  font-size: 1rem;
+}
+
+.card h1{
+  font-size: 2rem;
 }
 
 }

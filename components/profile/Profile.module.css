@@ -32,14 +32,13 @@
   position: absolute;
   bottom: -85px;
   left: 90px;
-  top: 0;
   transform: translate(-50%, -50%);
   filter: drop-shadow(0 0 3px #21212149);
-  overflow: hidden;
 }
 
 .avatar img{
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .info{
