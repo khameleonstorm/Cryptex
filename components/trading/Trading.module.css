@@ -24,7 +24,7 @@
 }
 
 .trade1 p{
-  font-size: .8rem;
+  font-size: 16px;
   font-weight: 300;
 }
 
@@ -48,6 +48,7 @@
 
 .note p{
   width: 90%;
+  font-size: 15px;
 }
 
 .btns{
