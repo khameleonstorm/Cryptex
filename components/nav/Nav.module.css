@@ -30,14 +30,10 @@
   justify-content: center;
 }
 
-.logo h2{
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: white;
-}
-
 .logo img{
-  width: 50px;
+  width: 130px;
+  height: 60px;
+  object-fit: cover;
 }
 
 .menu{

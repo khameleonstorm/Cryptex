@@ -2,6 +2,7 @@ import Link from "next/link"
 import s from "./Nav.module.css"
 import { useEffect, useState } from "react"
 import useAuth from "@/hooks/useAuth"
+import Image from "next/image"
 
 export default function Nav(props: {black?: boolean}) {
   const [navbg, setNavbg] = useState(false)
@@ -29,7 +30,7 @@ export default function Nav(props: {black?: boolean}) {
     <nav className={navbg? s.container2 : s.container}>
       <div className={s.wrapper}>
         <Link href="/" className={s.logo}>
-          <h2 style={props.black? {color: "black"} : {color: "inherit"}}>Cryptex</h2>
+          <Image src="/assets/CPLOGO9.png" width={130} height={60} alt="logo" />
         </Link>
 
         {!(props.black) &&

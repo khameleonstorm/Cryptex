@@ -21,6 +21,7 @@
     "eslint-config-next": "13.2.4",
     "firebase": "^9.17.2",
     "next": "13.2.4",
+    "node-cron": "^3.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
@@ -29,6 +30,7 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
-    "@types/dateformat": "^5.0.0"
+    "@types/dateformat": "^5.0.0",
+    "@types/node-cron": "^3.0.7"
   }
 }

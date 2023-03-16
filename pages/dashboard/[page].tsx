@@ -17,6 +17,7 @@ import DashboardNav from '@/components/dashboardNav/DashboardNav';
 import Referral from '@/components/referral/Referral';
 import Trading from '@/components/trading/Trading';
 import BalCard from '@/components/balCard/BalCard';
+import { TradeList } from '@/components/tradeList/TradeList';
 
 
 
@@ -58,6 +59,7 @@ export default function Index() {
       <div className={s.main}>
         <DashboardNav />
         <BalCard doc={doc[0]}/>
+        <TradeList user={user} />
       </div>
       } 
 

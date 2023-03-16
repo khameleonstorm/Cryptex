@@ -6,6 +6,7 @@ import useCollection from '@/hooks/useCollection';
 import SideNav from '@/components/sideNav/SideNav';
 import BalCard from '@/components/balCard/BalCard';
 import DashboardNav from '@/components/dashboardNav/DashboardNav';
+import { TradeList } from '@/components/tradeList/TradeList';
 
 // importing router functions
 import { useEffect } from 'react';
@@ -50,6 +51,7 @@ export default function Index() {
       <div className={s.main}>
         <DashboardNav />
         <BalCard doc={doc[0]}/>
+        <TradeList user={user} />
       </div>
     </div>
   )

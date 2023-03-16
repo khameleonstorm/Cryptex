@@ -34,7 +34,7 @@ export default function BalCard({doc}: doc | any) {
                 <h2>{account.title}</h2>
                 <p style={account.balance > 0 ?{color: "#00b35f"} : {}}>Activity &darr;100%</p>
               </div>
-              <h1>{account.balance} USD</h1>
+              <h1>{account.balance.toFixed(2)} USD</h1>
               {account.trade && 
                 <div className={styles.btns2}>
                   <Link href='/dashboard/trade'>Open trade</Link>

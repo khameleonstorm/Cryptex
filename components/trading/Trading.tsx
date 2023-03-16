@@ -21,8 +21,8 @@ export default function Trading({doc}: doc | any) {
 
   const handleTrade = () => {
     const data = { amount: Number(amount), doc }
-    initiateTrade(data);
     console.log(data)
+    initiateTrade(data);
   }
 
 

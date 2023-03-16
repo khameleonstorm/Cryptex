@@ -1,5 +1,5 @@
 import { db, storage } from "../firebase/config";
-import { collection, setDoc, doc, deleteDoc, updateDoc } from "firebase/firestore"; 
+import { collection, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { updateProfile } from "firebase/auth"
 import {  useEffect, useReducer, useState } from 'react';
@@ -40,26 +40,23 @@ export function useFirestore(coll: string) {
 
 
     const addDocument = async(data: object) => {
-        const docRef = doc(collection(db, coll))
+        const docRef = collection(db, coll)
 
         try {
             if (notCancelled) {
                 dispatch({type: "IS_PENDING"})
 
-                await setDoc(docRef, data)
+                const document: {[key: string]: string}| any = await addDoc(docRef, data)
     
-                dispatch({type: "SET_DOC", payload: data})
+                dispatch({type: "SET_DOC", payload: document})
+                
+                return document
             }
 
         } catch (error: any) {
-            if (notCancelled) {
-                dispatch({type: "ERROR", payload: error.message})
-            }
+            if (notCancelled) {dispatch({type: "ERROR", payload: error.message})
         }
-
-        setTimeout(() => {
-            dispatch({type: "DONE"})
-        }, 2000);
+      }
     }
     
     const updateprofile = async(data: object, file: File, displayName: string) => {

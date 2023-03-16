@@ -2,18 +2,20 @@ import Link from 'next/link';
 import s from './Footer.module.css';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaTelegramPlane } from 'react-icons/fa';
 import { AiFillInstagram } from 'react-icons/ai';
+import Image from 'next/image';
 
 
 export default function Footer() {
   return (
     <div className={s.container}>
       <div className={s.address}>
-        <h1>Cryptex</h1>
-        <p>Cecilia Chapman 711-2880 Nulla St. Mankato Mississippi 96522</p>
+        <Image src="/assets/CPLOGO9.png" width={130} height={60} alt="logo" />
+        <p>Address: No 21 Bekwere Wosu Street D&apos;line portharcourt </p>
         <h2>Email</h2>
-        <a href="tel:+123456789101">+12 345 678 9101</a>
+        <a href="mailto:info@ctmpro.co.uk">info@ctmpro.co.uk</a>
         <h2>Phone</h2>
-        <a href="mailto:hello.cryptex@gmail.com">hello.cryptex@gmail.com</a>
+        <a href="tel:+2347044066175"><span>NIG</span>+2347044066175</a>
+        <a href="tel:+233257777315"><span>GN</span>+233257777315</a>
       </div>
       <div className={s.links}>
         <h2>Useful Links</h2>
