@@ -47,39 +47,27 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
       const tradeDoc = await getDoc(doc(db, "trades", tradeDocRef.id));
 
       if(tradeDoc.exists()){
-      const { progress } = tradeDoc.data();
-      // Send response to client before the progress starts counting
-      res.write(JSON.stringify({ message: "Success" }));
-      res.flushHeaders();
+        const { progress } = tradeDoc.data();
+        // Send response to client before the progress starts counting
+        res.write(JSON.stringify({ message: "Success" }));
+        res.flushHeaders();
 
-      if (progress >= 24) {
-        const userDoc = await getDoc(userRef);
+        if (progress >= 24) {
+          const userDoc = await getDoc(userRef);
 
-        if (userDoc.exists()) {
-          await updateDoc(userDoc.ref, { "bal.profit": increment(profit), "bal.balance": increment(profit + amount) });
-          await updateDoc(tradeDoc.ref, { "progress": 24, "isPending": false });
+          if (userDoc.exists()) {
+            await updateDoc(userDoc.ref, { "bal.profit": increment(profit), "bal.balance": increment(profit + amount) });
+            await updateDoc(tradeDoc.ref, { "progress": 24, "isPending": false });
+          }
+          
+          clearInterval(task);
+        } else {
+          await updateDoc(tradeDoc.ref, { "progress": progress + 1 });
         }
-        
+      } else{
         clearInterval(task);
-      } else {
-        await updateDoc(tradeDoc.ref, { "progress": progress + 1 });
       }
-    }
     }, 56000);
-
-    // Schedule the profit update after 24 hours
-    // await new Promise<void>((resolve) => {
-    //   setTimeout(async () => {
-    //     const userDoc = await getDoc(userRef);
-    //     const tradeDoc = await getDoc(doc(db, "trades", tradeDocRef.id));
-    //     if (userDoc.exists()) {
-    //       await updateDoc(userDoc.ref, { "bal.profit": increment(profit), "bal.balance": increment(profit + amount) });
-    //       await updateDoc(tradeDoc.ref, { "progress":24, "isPending": false });
-    //       clearInterval(task); // destroy the task
-    //     }
-    //     resolve();
-    //   }, 1800000);
-    // });
 
     return res.status(200).json({ message: "Done"})
   } catch (error: any) {

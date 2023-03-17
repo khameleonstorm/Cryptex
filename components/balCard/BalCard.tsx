@@ -38,7 +38,7 @@ export default function BalCard({doc}: doc | any) {
               {account.trade && 
                 <div className={styles.btns2}>
                   <Link href='/dashboard/trade'>Open trade</Link>
-                  <Link href='#'>close trade</Link>
+                  <Link href='/dashboard/trade'>close trade</Link>
                 </div>
               }
             </div>

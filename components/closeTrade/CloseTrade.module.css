@@ -1,0 +1,30 @@
+.ctn{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.ctn div{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.ctn h1{
+  font-size: 1.7rem;
+  font-weight: 400;
+  margin: 20px;
+}
+
+.ctn p{
+  font-size: 16px;
+  font-weight: 300;
+}

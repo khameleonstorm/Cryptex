@@ -5,6 +5,7 @@ import s from './Trading.module.css';
 import { useRouter } from 'next/router';
 import startTrade from '@/hooks/startTrade';
 import { TbSquareRoundedCheckFilled } from "react-icons/tb"
+import CloseTrade from '../closeTrade/CloseTrade';
 
 type doc =  {[key: string]: {[key: string]: {[key: string]: number}}}
 
@@ -50,7 +51,7 @@ export default function Trading({doc}: doc | any) {
   
           <div className={s.btns}>
             <button className='bigBtn full' onClick={()=> setPage(2)}>Open Trade</button>
-            <button className='bigBtn full'>Close Trade</button>
+            <button className='bigBtn full' onClick={()=> setPage(3)}>Close Trade</button>
           </div>
         </div>
       }
@@ -71,6 +72,12 @@ export default function Trading({doc}: doc | any) {
           {isPending && <button style={{...overwrite}} className='bigBtn full'>Loading...</button>}
           {error && <p className='formError'>{error}</p>}
           <button style={{...overwrite}} className='bigBtn full' onClick={handleNavigate}><span style={{...span2}}>&larr;</span> Back To Dashboard </button>
+        </div>
+      }
+
+      {page === 3 &&
+        <div className={s.trade3}>
+          <CloseTrade />
         </div>
       }
     </div>
