@@ -43,7 +43,7 @@ export const useLogin = () => {
           }
 
         // Load the dashboard page using dynamic import
-        import('../pages/dashboard').then((module) => {
+        import('@/pages/dashboard/').then((module) => {
           const Dashboard = module.default
               navigate.push("/dashboard/home")
         })

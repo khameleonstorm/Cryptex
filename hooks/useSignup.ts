@@ -90,10 +90,8 @@ export const useSignup = () => {
                   lastLogin: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
                   CreatedAt: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
                   bal: {
-                    cryptoBalance: 0,
-                    fiatBalance: 0,
-                    cryptoDeposit: 0,
-                    fiatDeposit: 0,
+                    balance: 0,
+                    profit: 0,
                     totalWithdrawal: 0,
                     referralBonus: 0,
                   }

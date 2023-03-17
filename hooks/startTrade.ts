@@ -50,13 +50,11 @@ export default function startTrade() {
         });
 
         if (response.ok) {
-          const data = await response.json();
-          setSuccess(data.message)
+          setSuccess(true)
           await updateDoc(userDocRef, { "bal.balance": newBalance });
         } else {
           setSuccess(false)
-          const data = await response.json();
-          throwError(data.message)
+          throwError("Can't place trade at the moment")
         }
     } catch (error: any) {
       throwError("Can't place trade at the moment")
