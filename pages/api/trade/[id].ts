@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import cron from 'node-cron';
 import { db } from "@/firebase/config";
 import { collection, doc, updateDoc, query, where, getDocs, getDoc, addDoc, increment } from "firebase/firestore";
 
@@ -42,32 +43,38 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
 
     const tradeDocRef = await addDoc(tradeCollRef, newTradeDoc);
 
-    // Schedule the timeout
-    const task: any = setInterval(async () => {
+    // Schedule task to run every 56 seconds
+    const task = cron.schedule('*/56 * * * * *', async () => {
       const tradeDoc = await getDoc(doc(db, "trades", tradeDocRef.id));
-
-      if(tradeDoc.exists()){
+    
+      if (tradeDoc.exists()) {
         const { progress } = tradeDoc.data();
         // Send response to client before the progress starts counting
         res.write(JSON.stringify({ message: "Success" }));
         res.flushHeaders();
-
+    
         if (progress >= 24) {
           const userDoc = await getDoc(userRef);
-
+    
           if (userDoc.exists()) {
             await updateDoc(userDoc.ref, { "bal.profit": increment(profit), "bal.balance": increment(profit + amount) });
             await updateDoc(tradeDoc.ref, { "progress": 24, "isPending": false });
           }
-          
-          clearInterval(task);
+    
+          // Stop the cron job
+          task.stop();
         } else {
           await updateDoc(tradeDoc.ref, { "progress": progress + 1 });
         }
-      } else{
-        clearInterval(task);
+      } else {
+        // Stop the cron job
+        task.stop();
       }
-    }, 56000);
+    });
+    
+    // Start the task
+    task.start();
+    
 
     return res.status(200).json({ message: "Done"})
   } catch (error: any) {

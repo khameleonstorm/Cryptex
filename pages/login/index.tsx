@@ -69,7 +69,7 @@ export default function Login() {
 
   useEffect(() => {
     if(user) {
-      navigate.push('/dashboard/hone')
+      navigate.push('/dashboard/home')
     }
   }, [user, navigate])
 
