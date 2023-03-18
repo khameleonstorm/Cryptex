@@ -39,26 +39,26 @@ export default function startTrade() {
       // Deduct the trade amount from user's balance
       const newBalance = data.doc.bal.balance - data.amount;
       const userDocRef = doc(db, "profile", data.doc.email);
-      const randomNumber = Math.floor(Math.random() * 100000) + 1;
-      const tradeRandomId = `${data.doc.uid}${randomNumber}`
       
       const docRef = {...data, date: dateObject}
-        const response = await fetch(`/api/trade/${tradeRandomId}`, {
+        const response = await fetch(`/api/trade/${data.doc.uid}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(docRef)
         });
+
+        const resData = await response.json();
 
         if (response.ok) {
           setSuccess(true)
           await updateDoc(userDocRef, { "bal.balance": newBalance });
         } else {
           setSuccess(false)
-          throwError("Can't place trade at the moment")
+          throwError(resData.message)
         }
     } catch (error: any) {
-      throwError("Can't place trade at the moment")
-      console.log(error)
+      throwError(error.message)
+      console.log(error.message)
     }
 
     setIsPending(false)
