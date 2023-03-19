@@ -1,5 +1,3 @@
-import { db } from "@/firebase/config"
-import { doc, updateDoc } from "firebase/firestore"
 import { useState } from "react"
 
 
@@ -36,12 +34,8 @@ export default function startTrade() {
     
 
     try {
-      // Deduct the trade amount from user's balance
-      const newBalance = data.doc.bal.balance - data.amount;
-      const userDocRef = doc(db, "profile", data.doc.email);
-      
       const docRef = {...data, date: dateObject}
-        const response = await fetch(`/api/trade/${data.doc.uid}`, {
+        const response = await fetch(`/api/trade/placeTrade`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(docRef)
@@ -51,7 +45,6 @@ export default function startTrade() {
 
         if (response.ok) {
           setSuccess(true)
-          await updateDoc(userDocRef, { "bal.balance": newBalance });
         } else {
           setSuccess(false)
           throwError(resData.message)
