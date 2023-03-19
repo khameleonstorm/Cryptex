@@ -25,7 +25,6 @@ export default function startTrade() {
     setIsPending(true)
     setError(null)
     const date = new Date();
-    const dateObject = { day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear()}
 
     if(!data.doc) return throwError("Can't place trade at the moment")
     if(data.amount <= 0) return throwError("Minimum amount must be > 0")
@@ -34,7 +33,7 @@ export default function startTrade() {
     
 
     try {
-      const docRef = {...data, date: dateObject}
+      const docRef = {...data}
         const response = await fetch(`/api/trade/placeTrade`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
