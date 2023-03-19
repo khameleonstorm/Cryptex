@@ -3,10 +3,6 @@ import cron from 'node-cron';
 import { db } from "@/firebase/config";
 import { collection, doc, updateDoc, query, where, getDocs, getDoc, increment, writeBatch } from "firebase/firestore";
 
-export const config = {
-  runtime: 'edge',
-}
-
 type Data = {
   message: string
 }
