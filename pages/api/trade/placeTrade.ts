@@ -3,6 +3,10 @@ import cron from 'node-cron';
 import { db } from "@/firebase/config";
 import { collection, doc, updateDoc, query, where, getDocs, getDoc, increment, writeBatch } from "firebase/firestore";
 
+export const config = {
+  runtime: 'edge',
+}
+
 type Data = {
   message: string
 }
@@ -30,6 +34,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
     const dateQuery = query(tradeRef, where("email", "==", currentUser.email), where("date.day", "==", prevD.day), where("date.month", "==", prevD.month), where("date.year", "==", prevD.year));
 
     const prevTrade = await getDocs(dateQuery);
+    console.log("is it the cron job?")
 
     if (prevTrade.size > 0) {
       prevTrade.forEach(async (doc) => {
@@ -41,6 +46,8 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
     const newTradeRef = doc(tradeRef)
     batch.update(userRef, { "bal.balance":  newBalance});
     batch.set(newTradeRef, newTradeDoc);
+
+    console.log("is it the cron job?")
 
     
     // Schedule task to run every 1 minutes
