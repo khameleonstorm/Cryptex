@@ -24,7 +24,6 @@ export default function startTrade() {
   const initiateTrade = async (data: TradeData) => {
     setIsPending(true)
     setError(null)
-    const date = new Date();
 
     if(!data.doc) return throwError("Can't place trade at the moment")
     if(data.amount <= 0) return throwError("Minimum amount must be > 0")
@@ -33,20 +32,19 @@ export default function startTrade() {
     
 
     try {
-      const docRef = {...data}
         const response = await fetch(`/api/trade/placeTrade`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(docRef)
+          body: JSON.stringify({...data})
         });
 
-        const resData = await response.json();
+        const res = await response.json();
 
         if (response.ok) {
           setSuccess(true)
         } else {
           setSuccess(false)
-          throwError(resData.message)
+          throwError(res.message)
         }
     } catch (error: any) {
       throwError(error.message)

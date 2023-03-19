@@ -8,14 +8,18 @@ type Data = {
 
 
 async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
-  const date = new Date();
-  const {user, amount } = req.body
+  if (!req.body || !req.body.doc || !req.body.amount) {
+    return res.status(400).json({ message: "Invalid request body" });
+  }
+  
+  const {doc: user, amount } = req.body;
+  const date = new Date(); 
   const newBalance = user.bal.balance - amount;
   const batch = writeBatch(db)
   const tradeRef = collection(db, "trades")
   const userRef = doc(db, "profile", user.email);
-  const newTradeDoc = {date, amount, isPending: true, email: user.email, progress: 0}
-  const userTQ = query(tradeRef, where("email", "==", user.email), where("date.day", "==", date));
+  const newTradeDoc = {date, amount, isPending: true, email: user.email}
+  const userTQ = query(tradeRef, where("email", "==", user.email), where("date", "==", date));
 
 
   try {
@@ -31,7 +35,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
     if (prevTrade.size > 0) {
       prevTrade.forEach(async (doc) => {
         const { isPending } = doc.data();
-        if (isPending) return res.status(400).json({ message: "Uresolved trades from the prev day"});
+        if (isPending) return res.status(400).json({ message: "Unresolved trades from the prev day"});
       })
     }
 
@@ -47,3 +51,4 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   }
 }
 
+export default handler

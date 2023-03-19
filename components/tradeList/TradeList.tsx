@@ -29,6 +29,7 @@ export function TradeList({ user }: any): any {
           let results: Array<object> = []
           snapshot.forEach(doc => results.push({ ...doc.data(), id: doc.id}))
           setTrades(results);
+          console.log(results)
         },
         (error) => {
           console.log(error.message)
@@ -40,7 +41,7 @@ export function TradeList({ user }: any): any {
     fetchTrades();
   }, [user.email]);
 
-  return (trades.length > 0 &&
+  return (trades.length < 0 &&
     <div className={s.ctn}>
       {trades.map((trade: tradeDoc) => (
           <div key={trade.id}  className={s.wrapper}>
