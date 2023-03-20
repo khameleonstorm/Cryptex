@@ -21,7 +21,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
 
 
   const tradesToUpdate = pendingTrades.filter((trade: any) => {
-    const tradeDate = new Date(trade.date);
+    const tradeDate = new Date(trade.date.year, trade.date.month, trade.date.day, trade.date.hours, trade.date.minutes, trade.date.seconds);
     return tradeDate <= twentyFourMinutesAgo;
   });
 

@@ -6,6 +6,8 @@ type Data = {
   message: string
 }
 
+interface dateObj {[key: string]: number}
+
 
 async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   if (!req.body || !req.body.doc || !req.body.amount) {
@@ -13,13 +15,24 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   }
   
   const {doc: user, amount } = req.body;
-  const date = new Date(); 
+  const newDate = new Date(); 
+  const date: dateObj = {
+    seconds: newDate.getTime() / 1000,
+    minutes: newDate.getMinutes(),
+    hours: newDate.getHours(),
+    day: newDate.getDate(),
+    month: newDate.getMonth()+ 1,
+    year: newDate.getFullYear()
+  }
   const newBalance = user.bal.balance - amount;
   const batch = writeBatch(db)
   const tradeRef = collection(db, "trades")
   const userRef = doc(db, "profile", user.email);
   const newTradeDoc = {date, amount, isPending: true, email: user.email}
-  const userTQ = query(tradeRef, where("email", "==", user.email), where("date", "==", date));
+  const userTQ = query(tradeRef, where("email", "==", user.email), 
+  where("date.day", "==", date.day), 
+  where("date.month", "==", date.month), 
+  where("date.year", "==", date.year));
 
 
   try {
@@ -28,8 +41,20 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
     if (userTSS.size >= 3) return res.status(400).json({ message: "Max trades per day is 3"});
     
     // check the trade from the previous day 
-    date.setDate(date.getDate() - 1);
-    const Q = query(tradeRef, where("email", "==", user.email), where("date", "==", date));
+    const prevDate = new Date(newDate.getTime() - 24 * 60 * 60 * 1000);
+    const prevDateObj: dateObj = {
+      seconds: prevDate.getTime() / 1000,
+      minutes: prevDate.getMinutes(),
+      hours: prevDate.getHours(),
+      day: prevDate.getDate(),
+      month: prevDate.getMonth() + 1,
+      year: prevDate.getFullYear()
+    }
+    const Q = query(tradeRef, where("email", "==", user.email), 
+    where("date.day", "==", prevDateObj.day), 
+    where("date.month", "==", prevDateObj.month), 
+    where("date.year", "==", prevDateObj.year));
+
     const prevTrade = await getDocs(Q);
 
     if (prevTrade.size > 0) {
