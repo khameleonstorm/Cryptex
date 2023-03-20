@@ -39,6 +39,12 @@ export function TradeList({ user }: any): any {
 
     fetchTrades();
     // fetch(`/api/trade/cron`).then(res => res.json()).then(data => console.log(data))
+    const now = new Date();
+
+    const t24Ago = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const prevTD = { year: t24Ago.getFullYear(), month: t24Ago.getMonth() + 1, day: t24Ago.getDate(), hours: t24Ago.getHours()}
+
+    console.log(prevTD)
   }, [user.email]);
 
   return (trades.length > 0 &&
