@@ -86,7 +86,10 @@ export const useSignup = () => {
                   phoneNumber,
                   fullName,
                   country,
-                  referral,
+                  referral: {
+                    code: referral,
+                    isAdded: false,
+                  },
                   lastLogin: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
                   CreatedAt: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
                   bal: {

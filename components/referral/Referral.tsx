@@ -43,7 +43,7 @@ export default function Referral() {
         <div className={s.imgCtn}>
           <Image src={referral} alt="referral" width="300" height="300" priority/>
         </div>
-        <p>Get 2% of every deposit made by any customer you refer.</p>
+        <p>Get $10 when your referred friends make a deposit.</p>
         <div className={s.copyWrapper}>
           <h2>{user.uid?.length > 5 ? user.uid.substring(0, 5) + ".." : user.uid}
           </h2>
