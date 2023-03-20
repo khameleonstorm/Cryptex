@@ -17,7 +17,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
 
   pendingTrades.forEach((trade: any) => {
     const tradeRef = doc(tradesRef, trade.id);
-    if(trade.progress <= 24) {
+    if(trade.progress <= 1440) {
       batch.update(tradeRef, {progress: increment(1)})
     }
   })
@@ -31,11 +31,11 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   });
 
   tradesToUpdate.forEach((trade: any) => {
-    const tradeRef = doc(collection(tradesRef, trade.id));
+    const tradeRef = doc(tradesRef, trade.id);
     batch.update(tradeRef, { isPending: false});
 
     // Update user profile
-    const profileRef = doc(collection(profilesRef, trade.id));
+    const profileRef = doc(profilesRef, trade.id);
     const profit = trade.amount * 0.0357;
 
     const updateProfileData = {

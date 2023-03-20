@@ -66,9 +66,10 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
       prevTrade.forEach(async (doc) => {
         const { isPending } = doc.data();
         if (isPending) return res.status(400).json({ message: "Unresolved trades from the prev day"});
-        else {  await batch.commit() }
       })
     }
+
+    await batch.commit()
     
     return res.status(200).json({ message: "Done"})
   } catch (error: any) {

@@ -111,10 +111,6 @@
 }
 
 @media screen and (max-width: 800px){
-.logo img{
-  width: 40px;
-}
-
 .logo h2{
   font-size: 1rem;
   margin-left: -5px;
