@@ -25,7 +25,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
       batch.update(tradeRef, {isPending: false})
 
       // Update user profile
-      const profileRef = doc(profilesRef, trade.id);
+      const profileRef = doc(profilesRef, trade.email);
       const profit = trade.amount * 0.0357;
 
       const updateProfileData = {
@@ -36,7 +36,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
       batch.update(profileRef, updateProfileData);
     }
   });
-  
+
   try {
   await batch.commit();
   res.status(200).json({ message: 'Trade updates successfully processed' });
