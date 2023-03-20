@@ -28,7 +28,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
 
 
   const tradesToUpdate = pendingTrades.filter((trade: any) => {
-    return trade.progress >= 1440 || trade.date.year === prevTD.year && trade.date.month === prevTD.month && trade.date.day === prevTD.day && trade.date.hours === prevTD.hours
+    return trade.date.year === prevTD.year && trade.date.month === prevTD.month && trade.date.day === prevTD.day && trade.date.hours === prevTD.hours
   });
 
   tradesToUpdate.forEach((trade: any) => {
