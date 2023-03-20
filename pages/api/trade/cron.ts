@@ -14,17 +14,16 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   const q = query(tradesRef, where('isPending', '==', true));
   const querySnapshot = await getDocs(q);
   const pendingTrades = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  
+
   pendingTrades.forEach((trade: any) => {
-    const tradeRef = doc(collection(tradesRef, trade.id));
+    const tradeRef = doc(tradesRef, trade.id);
     if(trade.progress <= 24) {
       batch.update(tradeRef, {progress: increment(1)})
     }
   })
 
   const now = new Date();
-  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  // const twentyFourMinutesAgo = new Date(now.getTime() - 10 * 60 * 1000);
+  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 1000);
 
   const tradesToUpdate = pendingTrades.filter((trade: any) => {
     const tradeDate = new Date(trade.date.year, trade.date.month, trade.date.day, trade.date.hours, trade.date.minutes, trade.date.seconds);

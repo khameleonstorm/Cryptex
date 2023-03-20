@@ -38,6 +38,7 @@ export function TradeList({ user }: any): any {
     }
 
     fetchTrades();
+    fetch(`/api/trade/cron`).then(res => res.json()).then(data => console.log(data))
   }, [user.email]);
 
   return (trades.length > 0 &&
