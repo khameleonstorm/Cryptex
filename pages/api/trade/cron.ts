@@ -20,33 +20,23 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
     if(trade.progress <= 1440) {
       batch.update(tradeRef, {progress: increment(1)})
     }
-  })
 
-  const now = new Date();
-  const t24Ago = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  const prevTD = { year: t24Ago.getFullYear(), month: t24Ago.getMonth() + 1, day: t24Ago.getDate(), hours: t24Ago.getHours()}
+    if(trade.progress === 1440) {
+      batch.update(tradeRef, {isPending: false})
 
+      // Update user profile
+      const profileRef = doc(profilesRef, trade.id);
+      const profit = trade.amount * 0.0357;
 
-  const tradesToUpdate = pendingTrades.filter((trade: any) => {
-    return trade.date.year === prevTD.year && trade.date.month === prevTD.month && trade.date.day === prevTD.day && trade.date.hours === prevTD.hours
+      const updateProfileData = {
+        "bal.balance": increment(trade.amount + profit),
+        "bal.profit": increment(profit),
+      };
+
+      batch.update(profileRef, updateProfileData);
+    }
   });
-
-  tradesToUpdate.forEach((trade: any) => {
-    const tradeRef = doc(tradesRef, trade.id);
-    batch.update(tradeRef, { isPending: false});
-
-    // Update user profile
-    const profileRef = doc(profilesRef, trade.id);
-    const profit = trade.amount * 0.0357;
-
-    const updateProfileData = {
-      "bal.balance": increment(trade.amount + profit),
-      "bal.profit": increment(profit),
-    };
-
-    batch.update(profileRef, updateProfileData);
-  });
-
+  
   try {
   await batch.commit();
   res.status(200).json({ message: 'Trade updates successfully processed' });
