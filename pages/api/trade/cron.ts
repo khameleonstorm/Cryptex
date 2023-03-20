@@ -23,11 +23,12 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   })
 
   const now = new Date();
-  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 1000);
+  const t24Ago = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const prevTD = { year: t24Ago.getFullYear(), month: t24Ago.getMonth() + 1, day: t24Ago.getDate(), hours: t24Ago.getHours()}
+
 
   const tradesToUpdate = pendingTrades.filter((trade: any) => {
-    const tradeDate = new Date(trade.date.year, trade.date.month, trade.date.day, trade.date.hours, trade.date.minutes, trade.date.seconds);
-    return tradeDate <= twentyFourHoursAgo;
+    return trade.progress >= 1440 && trade.date.year === prevTD.year && trade.date.month === prevTD.month && trade.date.day === prevTD.day && trade.date.hours === prevTD.hours
   });
 
   tradesToUpdate.forEach((trade: any) => {
