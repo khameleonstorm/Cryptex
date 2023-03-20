@@ -28,7 +28,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   const batch = writeBatch(db)
   const tradeRef = collection(db, "trades")
   const userRef = doc(db, "profile", user.email);
-  const newTradeDoc = {date, amount, isPending: true, email: user.email}
+  const newTradeDoc = {date, amount, isPending: true, email: user.email, progress: 0}
   const userTQ = query(tradeRef, where("email", "==", user.email), 
   where("date.day", "==", date.day), 
   where("date.month", "==", date.month), 
@@ -50,6 +50,7 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
       month: prevDate.getMonth() + 1,
       year: prevDate.getFullYear()
     }
+    
     const Q = query(tradeRef, where("email", "==", user.email), 
     where("date.day", "==", prevDateObj.day), 
     where("date.month", "==", prevDateObj.month), 
@@ -57,18 +58,17 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
 
     const prevTrade = await getDocs(Q);
 
-    if (prevTrade.size > 0) {
-      prevTrade.forEach(async (doc) => {
-        const { isPending } = doc.data();
-        if (isPending) return res.status(400).json({ message: "Unresolved trades from the prev day"});
-      })
-    }
-
     const newTradeRef = doc(tradeRef)
     batch.update(userRef, { "bal.balance":  newBalance});
     batch.set(newTradeRef, newTradeDoc);
     
-    await batch.commit();
+    if (prevTrade.size > 0) {
+      prevTrade.forEach(async (doc) => {
+        const { isPending } = doc.data();
+        if (isPending) return res.status(400).json({ message: "Unresolved trades from the prev day"});
+        else {  await batch.commit() }
+      })
+    }
     
     return res.status(200).json({ message: "Done"})
   } catch (error: any) {

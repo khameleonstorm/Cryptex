@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '@/firebase/config';
 
-interface dateObj {[key: string]: number}
+interface dateObj {
+  year: number,
+  month: number,
+  day: number,
+}
 
 interface tradeDoc {
   id: string,
@@ -20,51 +24,33 @@ export function TradeList({ user }: any): any {
   const q = query(collection(db, 'trades'), where('email', '==', user.email));
 
   useEffect(() => {
-    async function getTrades() {
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const results: tradeDoc[] = [];
+    async function fetchTrades() {
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+          let results: Array<object> = []
+          snapshot.forEach(doc => results.push({ ...doc.data(), id: doc.id}))
+          setTrades(results);
+        },
+        (error) => {
+          console.log(error.message)
+        });
       
-      snapshot.forEach((doc) => {
-        const data = doc.data() as tradeDoc;
-        const date = new Date( data.date.year, data.date.month, data.date.day, data.date.hours, data.date.minutes, data.date.seconds );
-        const now = new Date();
-        const diff = Math.abs(now.getTime() - date.getTime());
-        const diffHours = Math.floor(diff / (1000 * 60 * 60));
-        const progress = diffHours < 24 ? diffHours : 24;
+        return () => unsubscribe()
+    }
 
-        results.push({ ...data, id: doc.id, progress  });
-        console.log(results)
-        setTrades(results);
-      });
-    }, (error) => {
-      console.log(error.message);
-    });
-
-    return () => unsubscribe();
-  }
-
-  getTrades();
+    fetchTrades();
   }, [user.email]);
 
-
-  function formatDuration(hours: number): string {
-    return `${hours.toString().padStart(2, '0')}.00.00`;
-  }
-
-
-  return (
+  return (trades.length > 0 &&
     <div className={s.ctn}>
-      {trades.map((trade: any) => (
-        <div key={trade.id} className={s.wrapper}>
-          <div className={s.info}>
-            <div>
-              Date: <span>{trade.date.day}.{trade.date.month}.{trade.date.year}</span>
+      {trades.map((trade: tradeDoc) => (
+          <div key={trade.id}  className={s.wrapper}>
+            <div className={s.info}>
+              <div>Date: <span>{trade.date.day}.{trade.date.month}.{trade.date.year}</span></div>
+              <div>Amount: <span>${trade.amount}</span></div>
+              <div>Duration: <span>{trade.progress}</span></div>
             </div>
-            <div>Amount: <span>${trade.amount}</span></div>
-            <div>Duration: <span>{formatDuration(trade.progress)} left</span></div>
+            <ProgressBar value={trade.progress} max={24} />
           </div>
-          <ProgressBar value={trade.progress} max={24} />
-        </div>
       ))}
     </div>
   );
