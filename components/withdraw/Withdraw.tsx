@@ -35,10 +35,11 @@ export default function Withdraw({userDoc}: any | {doc: any}) {
       setIsPending(false)
       return
     }
+
     const data = { amount: Number(amount), wallet,  userDoc}
 
     // check if user has enough balance
-    if (data.amount > userDoc.balance) {
+    if (data.amount > userDoc.bal.balance) {
       setError('Insufficient balance')
       setTimeout(() => setError(null), 4000)
       setIsPending(false)
@@ -57,6 +58,7 @@ export default function Withdraw({userDoc}: any | {doc: any}) {
     setError(null)
   }
 
+  console.log(userDoc)
 
   return (
     <div className={s.ctn}>
