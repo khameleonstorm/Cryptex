@@ -10,6 +10,7 @@ import Link from 'next/link';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/router';
 import { PulseLoader } from 'react-spinners';
+import Head from 'next/head';
 
 
 
@@ -167,10 +168,21 @@ export default function SignUp() {
   if(user) {
     navigate.push('/dashboard/home')
   }
-  }, [user, navigate]);
+
+  setValues({...values, referral: id})
+  }, [user, navigate, id]);
 
 
   return ((authIsReady && !user) &&
+  <>
+    <Head>
+      <title>CTM PRO | Create An Account</title>
+      <meta name="description" content="Register For An Account On CTM PRO"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta property="og:site_name" content="CTM PRO | Auto Crypto Flipping System" />
+      <meta property="og:locale" content="en_US" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
     <div className="formCtn">
       <Nav black={true}/>
       <form className="form" onSubmit={handleSubmit}>
@@ -268,7 +280,7 @@ export default function SignUp() {
         id="referral_code" 
         label="Referral Code(Optional)" 
         variant="outlined" 
-        value={values.referral}
+        value={id}
         onChange={handleChange("referral")}/>
 
         <div className={s.checkbox}>
@@ -286,5 +298,6 @@ export default function SignUp() {
       </form>
 
     </div>
+    </>
   );
 }

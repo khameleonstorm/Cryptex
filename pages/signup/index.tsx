@@ -167,6 +167,7 @@ export default function SignUp() {
   if(user) {
     navigate.push('/dashboard/home')
   }
+  console.log(values.referral)
   }, [user, navigate]);
 
 
