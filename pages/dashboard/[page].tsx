@@ -18,6 +18,7 @@ import Referral from '@/components/referral/Referral';
 import Trading from '@/components/trading/Trading';
 import BalCard from '@/components/balCard/BalCard';
 import { TradeList } from '@/components/tradeList/TradeList';
+import Withdraw from '@/components/withdraw/Withdraw';
 
 
 
@@ -89,6 +90,13 @@ export default function Index() {
       <div className={s.main}>
         <DashboardNav />
         <Referral />
+      </div>
+      }
+
+      {page === 'withdraw' &&
+      <div className={s.main}>
+        <DashboardNav />
+        <Withdraw userDoc={doc[0]}/>
       </div>
       }
       

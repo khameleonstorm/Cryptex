@@ -173,7 +173,7 @@ export default function SignUp() {
   }, [user, navigate, id]);
 
 
-  return ((authIsReady && !user) &&
+  return ((authIsReady && !user && id) &&
   <>
     <Head>
       <title>CTM PRO | Create An Account</title>
@@ -281,7 +281,8 @@ export default function SignUp() {
         label="Referral Code(Optional)" 
         variant="outlined" 
         value={id}
-        onChange={handleChange("referral")}/>
+        onChange={handleChange("referral")}
+        InputLabelProps={{ shrink: true }}/>
 
         <div className={s.checkbox}>
           <input type="checkbox" onChange={(e) => handleCheckBox(e)}/>

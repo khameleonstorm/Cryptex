@@ -1,0 +1,27 @@
+.ctn{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.ctn h1{
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.form div{
+  width: 100%;
+}
