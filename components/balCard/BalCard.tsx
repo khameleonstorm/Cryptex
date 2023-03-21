@@ -13,26 +13,22 @@ export default function BalCard({doc: profile}: document | any) {
 
   useEffect(() => {
     async function fetchTrades() {
-      const unsubscribe = onSnapshot(q, (snapshot) => {
+      const unsubscribe = onSnapshot(q, async(snapshot) => {
         let results: Array<object> = []
         snapshot.forEach((document: any) => results.push({ ...document.data(), id: document.id}))
   
         if(results.length > 0){ 
           const bonus = results.length * 1  // $1 is the bonus amount
-  
+          const batch = writeBatch(db) // create a new batch object
+          
           results.forEach((document: any) =>{
             const referreredRef = doc(collection(db, 'profile'), document.id)
-            const referrerRef = doc(collection(db, 'profile'), profile.uid)
+            const referrerRef = doc(collection(db, 'profile'), profile.email)
             
-            // const batch = writeBatch(db) // create a new batch object
-            // batch.update(referreredRef, {"referral.isAdded": true})
-            // batch.update(referrerRef, {"bal.referralBonus": increment(bonus), "bal.balance": increment(bonus)})
-            
-            // // Commit the batch
-            // batch.commit()
-            //   .then(() =>console.log("Batch committed successfully"))
-            //   .catch((error) => console.error("Error committing batch:", error));
+            batch.update(referreredRef, {"referral.isAdded": true})
+            batch.update(referrerRef, {"bal.referralBonus": increment(bonus), "bal.balance": increment(bonus)})
           })
+          await batch.commit().then(() => console.log("Batch updated"))
         } 
       }, (error: any) => {
         console.log(error.message)

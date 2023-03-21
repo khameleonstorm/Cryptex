@@ -47,7 +47,7 @@ export function TradeList({ user }: any): any {
             <div className={s.info}>
               <div>Date: <span>{trade.date.day}.{trade.date.month}.{trade.date.year}</span></div>
               <div>Amount: <span>${trade.amount}</span></div>
-              <div>Duration: <span>{trade.progress}</span>/min</div>
+              <div>Duration: <span>{trade.progress}/min</span></div>
             </div>
             <ProgressBar value={trade.progress} max={1440} />
           </div>

@@ -31,9 +31,10 @@
 }
 
 .logo img{
-  width: 130px;
+  width: 150px;
   height: 60px;
   object-fit: cover;
+  margin-left: -10px;
 }
 
 .menu{

@@ -56,7 +56,7 @@ export default function Profile({ document }: Props | any): JSX.Element {
           <p>{user.email}</p>
           <div className={s.equity}>
             <p>Total Assets</p>
-            <h1>${total}</h1>
+            <h1>${total?.toFixed(2)}</h1>
           </div>
         </div>
         <div className={s.moreDetails}>

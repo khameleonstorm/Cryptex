@@ -35,8 +35,8 @@ export default function DashboardNav() {
           <Image 
           src={user?.photoURL ? user?.photoURL : `https://robohash.org/${user.uid}`} 
           alt="Avatar!"
-          width={35}
-          height={35}
+          width={45}
+          height={45}
           priority
           />
         </div>
@@ -44,8 +44,8 @@ export default function DashboardNav() {
         {menu && 
           <div className={s.menu} onClick={handleClick}>
             <Link href="/">Home</Link>
-            <Button variant="outlined" color="error" size="small" style={{fontSize: "0.7rem"}} onClick={logout}> 
-              Logout <HiOutlineLogout size="1.3em" style={{marginLeft: "1rem"}}/>
+            <Button variant="outlined" color="error" size="small" style={{fontSize: "0.9rem"}} onClick={logout}> 
+              Logout <HiOutlineLogout size="1.7em" style={{marginLeft: "1rem"}}/>
             </Button>
           </div>
         }

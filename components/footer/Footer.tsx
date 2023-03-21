@@ -13,9 +13,6 @@ export default function Footer() {
         <p>Address: No 21 Bekwere Wosu Street D&apos;line portharcourt </p>
         <h2>Email</h2>
         <a href="mailto:info@ctmpro.co.uk">info@ctmpro.co.uk</a>
-        <h2>Phone</h2>
-        <a href="tel:+2347044066175"><span>NIG</span>+2347044066175</a>
-        <a href="tel:+233257777315"><span>GN</span>+233257777315</a>
       </div>
       <div className={s.links}>
         <h2>Useful Links</h2>
