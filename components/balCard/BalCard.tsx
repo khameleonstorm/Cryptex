@@ -23,7 +23,7 @@ export default function BalCard({doc: profile}: document | any) {
           
           results.forEach((document: any) =>{
             const referreredRef = doc(collection(db, 'profile'), document.id)
-            const referrerRef = doc(collection(db, 'profile'), profile.email)
+            const referrerRef = doc(collection(db, 'profile'), profile?.email)
             
             batch.update(referreredRef, {"referral.isAdded": true})
             batch.update(referrerRef, {"bal.referralBonus": increment(bonus), "bal.balance": increment(bonus)})
@@ -35,8 +35,9 @@ export default function BalCard({doc: profile}: document | any) {
       });
       return () => unsubscribe()
     }
-    fetchTrades();
-  }, [profile.uid]);
+
+    if(profile) fetchTrades();
+  }, [profile]);
 
   useEffect(() => {
     if(profile){
