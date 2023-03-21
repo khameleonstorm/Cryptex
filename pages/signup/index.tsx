@@ -141,7 +141,7 @@ export default function SignUp() {
       return
     }
 
-    if(values.image.name === undefined || values.image.size > 5000000) {
+    if(values.image.name === undefined || values.image.size > 2000000) {
       setFormError({...formError, image: "Image is invalid or too large"});
       return
     }

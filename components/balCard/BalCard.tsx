@@ -9,10 +9,10 @@ type document =  {[key: string]: {[key: string]: {[key: string]: number}}}
 
 export default function BalCard({doc: profile}: document | any) {
   const [account, setAccount] = useState<acc>([])
-  const q = query(collection(db, 'profile'), where('referral.code', '==', profile.uid), where('referral.isAdded', '==', false), where('bal.balance', '>', 0));
-
+  
   useEffect(() => {
     async function fetchTrades() {
+      const q = query(collection(db, 'profile'), where('referral.code', '==', profile?.uid), where('referral.isAdded', '==', false), where('bal.balance', '>', 0));
       const unsubscribe = onSnapshot(q, async(snapshot) => {
         let results: Array<object> = []
         snapshot.forEach((document: any) => results.push({ ...document.data(), id: document.id}))
