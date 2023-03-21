@@ -8,6 +8,7 @@ import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/router';
 import { PulseLoader } from 'react-spinners';
 import { useLogin } from '@/hooks/useLogin';
+import Head from 'next/head';
 
 interface formErrors {
   email: string | null,
@@ -75,6 +76,16 @@ export default function Login() {
 
 
   return ((authIsReady && !user) &&
+  <>
+    <Head>
+      <title>CTM PRO | Login</title>
+      <meta name="description" content="Login your profile" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta property="og:site_name" content="CTM PRO | Auto Crypto Flipping System" />
+      <meta property="og:locale" content="en_US" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+
     <div className="formCtn">
       <Nav black={true}/>
       <form className="form" onSubmit={handleLogin} autoComplete="off">
@@ -120,5 +131,6 @@ export default function Login() {
       </form>
 
     </div>
+    </>
   )
 }

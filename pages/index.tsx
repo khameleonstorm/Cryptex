@@ -27,10 +27,10 @@ export default function Home() {
         return (
           <>
             <Head>
-              <title>Cryptex | Learning Digital Trade</title>
-              <meta name="description" content="Coin Cryptex is the easiest, safest, and fastest way to buy & sell crypto asset exchange." />
+              <title>CTM PRO | Auto Crypto Flipping System</title>
+              <meta name="description" content="CTM PRO Automated crypto flipping system. The easiest, safest, and fastest way to buy & sell crypto assets." />
               <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <meta property="og:site_name" content="Cryptex | Learning Digital Trade" />
+              <meta property="og:site_name" content="CTM PRO | Auto Crypto Flipping System" />
               <meta property="og:locale" content="en_US" />
               <link rel="icon" href="/favicon.ico" />
             </Head>

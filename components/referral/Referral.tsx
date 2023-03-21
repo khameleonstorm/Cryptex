@@ -43,13 +43,13 @@ export default function Referral() {
         <div className={s.imgCtn}>
           <Image src={referral} alt="referral" width="300" height="300" priority/>
         </div>
-        <p>Get $10 when your referred friends make a deposit.</p>
+        <p>Get $1 when your referred friends make a deposit.</p>
         <div className={s.copyWrapper}>
           <h2>{user.uid?.length > 5 ? user.uid.substring(0, 5) + ".." : user.uid}
           </h2>
           <div className={s.icons}>
             <IoCopy style={copyText ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard2(user.uid)}/>
-            <FaLink style={copyLink ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard(`https://cryptex-three.vercel.app/signup/${user.uid}`)}/>
+            <FaLink style={copyLink ? {color: "#00b35f"} : {}} onClick={() => copyToClipBoard(`https://www.ctmpro.co.uk/signup/${user.uid}`)}/>
           </div>
         </div>
       </div>

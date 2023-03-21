@@ -1,48 +1,59 @@
 import styles from './BalCard.module.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, doc, writeBatch, increment } from 'firebase/firestore';
 import { db } from '@/firebase/config';
 
 type acc = Array<object>
-type doc =  {[key: string]: {[key: string]: {[key: string]: number}}}
+type document =  {[key: string]: {[key: string]: {[key: string]: number}}}
 
-export default function BalCard({doc}: doc | any) {
+export default function BalCard({doc: profile}: document | any) {
   const [account, setAccount] = useState<acc>([])
-  const q = query(collection(db, 'profile'), where('referral', '==', doc.uid));
+  const q = query(collection(db, 'profile'), where('referral.code', '==', profile.uid), where('referral.isAdded', '==', false), where('bal.balance', '>', 0));
 
   useEffect(() => {
     async function fetchTrades() {
-      const unsubscribe = onSnapshot(q, (snapshot: any) => {
-          let results: Array<object> = []
-          snapshot.forEach((doc: any)=> results.push({ ...doc.data(), id: doc.id}))
-
-          // check for referral bonus
-          if(results.length > 0){
-          }
-        },
-        (error: any) => {
-          console.log(error.message)
-        });
-      
-        return () => unsubscribe()
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        let results: Array<object> = []
+        snapshot.forEach((document: any) => results.push({ ...document.data(), id: document.id}))
+  
+        if(results.length > 0){ 
+          const bonus = results.length * 1  // $1 is the bonus amount
+  
+          results.forEach((document: any) =>{
+            const referreredRef = doc(collection(db, 'profile'), document.id)
+            const referrerRef = doc(collection(db, 'profile'), profile.uid)
+            
+            // const batch = writeBatch(db) // create a new batch object
+            // batch.update(referreredRef, {"referral.isAdded": true})
+            // batch.update(referrerRef, {"bal.referralBonus": increment(bonus), "bal.balance": increment(bonus)})
+            
+            // // Commit the batch
+            // batch.commit()
+            //   .then(() =>console.log("Batch committed successfully"))
+            //   .catch((error) => console.error("Error committing batch:", error));
+          })
+        } 
+      }, (error: any) => {
+        console.log(error.message)
+      });
+      return () => unsubscribe()
     }
-
     fetchTrades();
-  }, [doc.uid]);
+  }, [profile.uid]);
 
   useEffect(() => {
-    if(doc){
+    if(profile){
       setAccount([
-        { balance: doc.bal.balance, title: "Balance", trade: true },
-        { balance: doc.bal.profit, title: "Profit" },
-        { balance: doc.bal.totalWithdrawal, title: "Total Withdraw" },
-        { balance: doc.bal.referralBonus, title: "Referral Bonus" },
+        { balance: profile.bal.balance, title: "Balance", trade: true },
+        { balance: profile.bal.profit, title: "Profit" },
+        { balance: profile.bal.totalWithdrawal, title: "Total Withdraw" },
+        { balance: profile.bal.referralBonus, title: "Referral Bonus" },
       ])
     }
   }, [doc])
 
-  return (doc &&
+  return (document &&
     <div className={styles.container}>
       <div>
         <div className={styles.btns}>
@@ -62,7 +73,7 @@ export default function BalCard({doc}: doc | any) {
               {account.trade && 
                 <div className={styles.btns2}>
                   <Link href='/dashboard/trade'>Open trade</Link>
-                  <Link href='/dashboard/trade'>close trade</Link>
+                  <Link href='/dashboard/trade'>Close trade</Link>
                 </div>
               }
             </div>
