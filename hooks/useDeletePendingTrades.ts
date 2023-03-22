@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { db } from "@/firebase/config";
-import { collection, query, where, getDocs, deleteDoc, writeBatch, doc, increment } from "firebase/firestore";
+import { collection, query, where, getDocs, writeBatch, doc, increment } from "firebase/firestore";
 
 type DeleteTradeHook = {
   isPending: boolean;
@@ -22,14 +22,8 @@ export const useDeletePendingTrades = (userEmail: string): DeleteTradeHook => {
     const tradesCollRef = collection(db, "trades");
     const batch = writeBatch(db);
 
-    // Find all trades for this user on the current day that are still pending
-    const today = new Date();
-    const todayObject = { day: today.getDate(), month: today.getMonth() + 1, year: today.getFullYear() }
-    const userTradesQuery = query(tradesCollRef, where("email", "==", userEmail), where("date.day", "==", todayObject.day),
-      where("date.month", "==", todayObject.month),
-      where("date.year", "==", todayObject.year),
-      where("isPending", "==", true)
-    );
+    // Find all trades for this user that are still pending
+    const userTradesQuery = query(tradesCollRef, where("email", "==", userEmail));
 
     const userTradesSnapshot = await getDocs(userTradesQuery);
 
