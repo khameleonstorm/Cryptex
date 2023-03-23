@@ -73,7 +73,6 @@ export function ProgressBar({ value, max }: { value: number; max: number }) {
           height: '100%',
           borderRadius: '10px',
           width: `${percent}%`,
-          maxWidth: '100%',
         }}
         className={s.bar}
       />
