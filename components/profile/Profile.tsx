@@ -29,7 +29,7 @@ export default function Profile({ document }: Props | any): JSX.Element {
 
   useEffect(() => {
     if (document) setProfile(document.find((doc: object|any) => doc.email === user.email));
-    if (profile) setTotal(profile?.bal.balance + profile?.bal.profit + profile?.bal.referralBonus)
+    if (profile) setTotal(profile?.bal.balance)
 
     console.log(document)
   }, [document, user, profile]);
