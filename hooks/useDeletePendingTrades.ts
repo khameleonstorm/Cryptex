@@ -23,7 +23,7 @@ export const useDeletePendingTrades = (userEmail: string): DeleteTradeHook => {
     const batch = writeBatch(db);
 
     // Find all trades for this user that are still pending
-    const userTradesQuery = query(tradesCollRef, where("email", "==", userEmail));
+    const userTradesQuery = query(tradesCollRef, where("email", "==", userEmail), where("isPending", "==", true));
 
     const userTradesSnapshot = await getDocs(userTradesQuery);
 
