@@ -2,7 +2,6 @@ import s from './SignUp.module.css';
 import Nav from '@/components/nav/Nav';
 import { FormControl, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import {MdVisibilityOff, MdVisibility} from "react-icons/md"
-import {AiFillCamera} from "react-icons/ai"
 import { useEffect,  useState } from 'react';
 import { countries } from '@/utils/countries';
 import { useSignup } from '@/hooks/useSignup';
@@ -11,7 +10,6 @@ import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/router';
 import { PulseLoader } from 'react-spinners';
 import Head from 'next/head';
-
 
 
 type FE = React.FormEvent<HTMLFormElement>
@@ -23,7 +21,6 @@ interface valueFields {
   email: string,
   phoneNumber: string,
   country: string,
-  image: File,
   referral: string | string[] | undefined,
   policyChecked: boolean,
   showPassword?: boolean,
@@ -36,7 +33,6 @@ interface errorFields {
     password: string | null,
     phoneNumber: string | null,
     country: string | null,
-    image: string | null,
     referral: string | null,
     policyChecked: string | null,
   }
@@ -54,7 +50,6 @@ export default function SignUp() {
     email: "",
     phoneNumber: "",
     country: "",
-    image: {} as File,
     referral: id,
     policyChecked: false,
     showPassword: false,
@@ -67,7 +62,6 @@ export default function SignUp() {
     password: null,
     phoneNumber: null,
     country: null,
-    image: null,
     referral: null,
     policyChecked: null,
   })
@@ -89,12 +83,6 @@ export default function SignUp() {
     e.preventDefault();
   };
 
-  // handling image upload
-  const handleImageUpload = (e: any) => {
-    setValues({...values, image: e.target.files[0] });
-    setFormError({ ...formError, image: null })
-  };
-
   // handling checkbox
   const handleCheckBox = (e: CE) => {
     setValues({...values, policyChecked: e.target.checked});
@@ -111,7 +99,6 @@ export default function SignUp() {
       email: values.email,
       phoneNumber: values.phoneNumber,
       country: values.country,
-      image: values.image,
       referral: values.referral,
       password: password,
     };
@@ -139,11 +126,6 @@ export default function SignUp() {
 
     if(values.country === "") {
       setFormError({...formError, country: "Select Your Country"});
-      return
-    }
-
-    if(values.image.name === undefined || values.image.size > 5000000) {
-      setFormError({...formError, image: "Image is invalid or too large"});
       return
     }
 
@@ -270,12 +252,7 @@ export default function SignUp() {
             label="Password"
           />
         </FormControl>
-        <div className={s.upload}>
-          {!formError.image && <p>{values.image?.name === undefined ? "Upload Profile Picture" : `${values.image.name}`}</p>}
-          {formError.image && <p className="formError">{formError.image}</p>}
-          <input accept="image/*" type="file" onChange={handleImageUpload}/>
-          <AiFillCamera />
-        </div>
+
         <TextField 
         id="referral_code" 
         label="Referral Code(Optional)" 

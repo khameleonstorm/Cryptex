@@ -32,13 +32,7 @@ export default function DashboardNav() {
       </div>
       <div className={s.logo}>
         <div className={s.image}>
-          <Image 
-          src={user?.photoURL ? user?.photoURL : `https://robohash.org/${user.uid}`} 
-          alt="Avatar!"
-          width={45}
-          height={45}
-          priority
-          />
+          <Image src={`https://robohash.org/${user.uid}`} alt="Avatar!" width={45} height={45} priority />
         </div>
         <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={handleClick}/>
         {menu && 

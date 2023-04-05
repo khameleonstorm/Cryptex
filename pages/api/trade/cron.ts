@@ -17,11 +17,11 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
 
   pendingTrades.forEach((trade: any) => {
     const tradeRef = doc(tradesRef, trade.id);
-    if(trade.progress < 1440) {
+    if(trade.progress < 24) {
       batch.update(tradeRef, {progress: increment(1)})
     }
 
-    if(trade.progress === 1440) {
+    if(trade.progress === 24) {
       batch.update(tradeRef, {isPending: false})
 
       // Update user profile

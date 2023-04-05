@@ -39,9 +39,9 @@ export default function Profile({ document }: Props | any): JSX.Element {
     <div className={s.container}>
       <div className={s.profile}>
         <div className={s.cover}>
-          <Image className={s.img} src={user.photoURL} alt="avatar" layout='fill' priority/>
+          <Image className={s.img} src={`https://robohash.org/${user.uid}`} alt="Avatar!" layout='fill' priority />
           <div className={s.avatar}>
-            <Image src={user.photoURL} alt="avatar" layout='fill' priority/>
+          <Image src={`https://robohash.org/${user.uid}`} alt="Avatar!" layout='fill' priority />
           </div>
         </div>
       </div>

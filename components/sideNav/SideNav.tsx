@@ -24,11 +24,7 @@ export default function SideNav() {
   return (authIsReady && user &&
     <div className={styles.container}>
         <div className={styles.profile}>
-            <Image 
-            src={user.photoURL ? user.photoURL : `https://robohash.org/${user.uid}`} 
-            alt="avatar"
-            width="50"
-            height="50" priority/>
+        <Image src={`https://robohash.org/${user.uid}`} alt="Avatar!" width={50} height={50} priority />
         </div>
         <div className={styles.links}>
           {page === undefined || page === "home" ? 

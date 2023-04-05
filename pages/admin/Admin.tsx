@@ -2,9 +2,6 @@ import s from './Admin.module.css';
 import useAuth from '@/hooks/useAuth';
 import useCollection from '@/hooks/useCollection';
 
-// importing components
-import SideNav from '@/components/sideNav/SideNav';
-
 // importing router functions
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -42,7 +39,6 @@ export default function Index() {
   return ((user && doc && authIsReady) &&
     <div className={s.container}>
       <div className={s.side}>
-        <SideNav />
       </div>
       
       <div className={s.main}>
