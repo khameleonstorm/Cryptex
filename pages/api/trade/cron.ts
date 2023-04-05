@@ -12,8 +12,18 @@ async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   const tradesRef = collection(db, 'trades');
   const profilesRef = collection(db, 'profile');
   const q = query(tradesRef, where('isPending', '==', true));
+  const q2 = query(tradesRef);
   const querySnapshot = await getDocs(q);
+  const querySnapshot2 = await getDocs(q2);
   const pendingTrades = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const pendingTrades2 = querySnapshot2.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+  pendingTrades2.forEach((trade: any) => {
+    const tradeRef = doc(tradesRef, trade.id);
+    if(trade.progress > 24) {
+      batch.update(tradeRef, {progress: 24})
+    }
+  })
 
   pendingTrades.forEach((trade: any) => {
     const tradeRef = doc(tradesRef, trade.id);
